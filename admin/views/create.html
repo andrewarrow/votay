@@ -1,0 +1,39 @@
+{% extends "layouts/admin.html" %}
+
+{% block content %}
+
+    <div id="page">
+      <div id="sidebar">
+
+      </div>
+  
+      <div id="content">
+        <div id="header">
+          <h1>Welcome to Votay</h1>
+          <h2>It doesn't mean anything</h2>
+        </div>
+          
+        <div id="getting-started">
+          <h1>Create Blog Post</h1>
+          <br/>
+                   
+          <form method="POST" action="/admin/create_post">
+          Title: <input type="text" name="t" size="50"/>
+          
+          <br/>
+          <br/>
+          Text:
+          
+          <textarea name="ta" rows="20" cols="50"></textarea>
+          <br/>
+          <br/>
+          
+          <input type="submit" value="Create Post"/>
+          
+          </form>
+          
+        </div>
+      </div>
+    </div>
+      
+{% endblock %}

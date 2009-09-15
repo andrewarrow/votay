@@ -1,0 +1,30 @@
+{% extends "layouts/home.html" %}
+
+{% block content %}
+
+    <div id="page">
+      <div id="sidebar">
+        
+      </div>
+  
+      <div id="content">
+        <div id="header">
+          <h1>Welcome to Votay</h1>
+          <h2>It doesn't mean anything</h2>
+        </div>
+          
+        <div id="getting-started">
+
+        {% for post in list %}
+        <p>
+        <h1><a href="{{post.permalink}}">{{post.title}}</a></h1><br/>
+        by {{post.author_name}} on {{post.created_at}}<br/><br/>
+        {{post.preview}}
+        </p>       
+        {% endfor %}
+
+        </div>
+      </div>
+    </div>
+      
+{% endblock %}

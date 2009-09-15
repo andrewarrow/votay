@@ -5,6 +5,7 @@ from google.appengine.api import users
 from google.appengine.ext.webapp import template
 import os
 import sys
+import models
 
 class MainHandler(webapp.RequestHandler):
   def get(self,path):
@@ -18,6 +19,12 @@ class CreateHandler(webapp.RequestHandler):
 
 class CreatePostHandler(webapp.RequestHandler):
   def post(self):
+    bp = models.BlogPost(title='This is a test title',
+                 markup='More testing',
+                 preview='More testing',
+                 author_key='',
+                 author_name='Andrew Arrow')
+    bp.put()
     self.redirect('/admin', permanent=False)
     
 def main():
