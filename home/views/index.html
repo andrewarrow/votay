@@ -18,7 +18,7 @@
         {% for post in list %}
         <p>
         <h1><a href="{{post.permalink}}">{{post.title}}</a></h1><br/>
-        by {{post.author_name}} on {{post.created_at}}<br/><br/>
+        by {{post.author_name}} on {{post.created_at|date:"F d, Y"}}<br/><br/>
         {{post.preview}}
         </p>       
         {% endfor %}
