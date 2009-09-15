@@ -12,6 +12,9 @@ handlers:
 
 - url: /javascript
   static_dir: static/javascript
+
+- url: /admin.*
+  script: admin/admin.py
   
 - url: .*
   script: main.py
