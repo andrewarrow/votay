@@ -10,9 +10,20 @@ class MainHandler(webapp.RequestHandler):
   def get(self,path):
     data = { 'title': 'Admin' }
     self.response.out.write(template.render('views/index.html', data))
+
+class CreateHandler(webapp.RequestHandler):
+  def get(self):
+    data = { 'title': 'Admin Create' }
+    self.response.out.write(template.render('views/create.html', data))
+
+class CreatePostHandler(webapp.RequestHandler):
+  def post(self):
+    self.redirect('/admin', permanent=False)
     
 def main():
-  application = webapp.WSGIApplication([('/(.*)', MainHandler)
+  application = webapp.WSGIApplication([('/admin/create_post', CreatePostHandler),
+                                        ('/admin/create', CreateHandler),
+                                         ('/(.*)', MainHandler)
                                         ],
                                        debug=True)
   wsgiref.handlers.CGIHandler().run(application)
