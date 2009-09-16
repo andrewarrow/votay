@@ -25,7 +25,7 @@ img.aligncenter 				{ margin-left:auto; margin-right:auto; position:relative; te
 .shot2, .alignright, .right 	{ float: right;	margin: 0 0 1em 1em; }
 a.shot, a.shot2					{ float: none !important; margin: auto !important; }
 
-#top 							{ margin: 10px auto 0 auto; width: 1002px; height: 5px; color: #222222; text-align: left; border-bottom: 1px solid #CCCCCC;  }
+#top 							{ margin: 10px auto 0 auto; width: 1002px; height: 20px; color: #222222; text-align: left; border-bottom: 1px solid #CCCCCC;  }
 #top_left 						{ padding: 2px 0 0 18px; z-index: 10; width: 700px; }
 #top_left li 					{ font-size: .85em; float: left; margin: 0 15px 0 0; }
 #top_left li a 					{ text-decoration: none; font-weight: normal; display: block; color: #555555; padding: 7px 0 7px 0;  } 
@@ -53,8 +53,7 @@ a.shot, a.shot2					{ float: none !important; margin: auto !important; }
 
 #header  								{ position: relative; padding-top: 85px; }
 #header_top								{ position: absolute; height: 85px; width: 1000px; top: 0; left: 0; height: 85px; overflow: hidden; }
-#header_logo2 							{ position: absolute; top: 20px; left: 20px; }
-#header_logo 							{ margin: 10px 0 0 20px; }
+#header_logo 							{ margin: 10px 0 0 10px; }
 #header_logo .logo_small				{ width: 230px; }
 #header_logo .logo_large				{ height: 46px; }
 #header_leaderboard 					{ position: absolute; top: 3px; right: 3px; }
