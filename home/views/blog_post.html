@@ -1,0 +1,17 @@
+{% extends "layouts/home.html" %}
+
+{% block content %}
+
+    <div id="page">
+      <div id="sidebar">
+        
+      </div>
+  
+      <div id="content">
+        <h1><a href="{{post.permalink}}">{{post.title}}</a></h1><br/>
+        by {{post.author_name}} on {{post.created_at|date:"F d, Y"}}<br/><br/>
+        {{post.markup}}
+      </div> 
+    </div>
+      
+{% endblock %}
