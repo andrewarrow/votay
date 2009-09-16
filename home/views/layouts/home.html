@@ -1,14 +1,132 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
-    <title>{{title}} - votay.com</title>
-    <link rel="stylesheet" href="/css/simple.css" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>{{title}} - votay</title>
+    <link rel="stylesheet" href="/css/complex.css" type="text/css" media="screen" />
+		<link rel="pingback" href="http://www.votay.com/xmlrpc.php" />
     <link rel="icon" type="image/png" href="/images/chart.png" />
+    <link rel='index' title='votay' href='http://www.votay.com' />
+    <link rel="canonical" href="http://www.votay.com/" />
+    <meta name="description" content="Open Source Blogging Software for Google App Engine" />
   </head>
-  <body>
-    {% block content %}{% endblock %}  
-    <div id="footer">&nbsp;</div>
-    </div>
+	<body id="votay">
+	<div id="top" class="snap_nopreview">
+			<div id="top_right">
+					
+	<form method="get" id="searchform" action="http://search.votay.com/query.php">
+		<ul>
+			<li><input type="text" name="s" id="s" /></li>
+			<li><input type="submit" id="searchsubmit" value="" /></li>
+		</ul>
+	</form>
+			</div>
+			<div id="top_left">
+				<ul>
+					<li id="top_active_tab"><div><a href="http://www.votay.com/" rel="nofollow" title="Tech">Tech</a></div></li>
+					<li ><div><a href="http://www.crunchgear.com/" title="Gadgets">Gadgets</a></div></li>
+					<li ><div><a href="http://www.mobilecrunch.com/" title="Mobile">Mobile</a></div></li>
+					<li ><div><a href="http://www.votayit.com/" title="Enterprise">Enterprise</a></div></li>
+					<li><div><a href="http://www.crunchbase.com/" title="CrunchBase">CrunchBase</a></div></li>
+                                        <li><div><a href="http://video.votay.com" title="VideoCrunch">Videos</a></div></li>
+										<li id="tcnetwork_more">
+						<div><a id="tcnetwork_more_link" href="#" onClick="tcnetwork_more(); stopPropagation(event); return false;">More</a></div>
+						<div id="tcnetwork_more_content">
+							<ul>
+								<li><a href="http://www.inviteshare.com/" title="Beta Invites">Beta Invites</a></li>
+								<li><a href="http://crunchies2008.votay.com/" title="Crunchies">Crunchies</a></li>
+								<li><a href="http://pitches.votay.com/" title="Elevator Pitches">Elevator Pitches</a></li>
+								<li><a href="http://gillmorgang.votay.com/" title="Gillmor Gang">Gillmor Gang</a></li>
+								<li><a href="http://www.talkcrunch.com/" title="Podcasts">Podcasts</a></a></li>
+								<li><a href="http://www.votay50.com/" title="votay50">votay50</a></li>
+								<li><a href="http://uk.votay.com/" title="votay Europe">votay Europe</a></li>
+								<li><a href="http://fr.votay.com/" title="votay France">votay France</a></li>
+								<li><a href="http://jp.votay.com/" title="votay Japan">votay Japan</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div id="container">
+			<div id="header" class="snap_nopreview header_w_leaderboard">
+				<div id="header_top">
+					<div id="header_logo"><a href="http://www.votay.com/" title="votay"><img width="231" height="34" alt="votay logo" src="votay2.png" /></a></div>
+					<div id="header_leaderboard">
+			</div>
+					<div style="clear:both"></div>
+				</div>
+				<div id="header_nav">
+					<div id="header_left">
+						<ul>
+							<li class="page_item page-item-120"><a href="http://www.votay.com/about-votay/" title="About">About</a></li>
+<li class="page_item page-item-1070"><a href="http://www.votay.com/advertise/" title="Advertise">Advertise</a></li>
+<li class="page_item page-item-1505"><a href="http://www.votay.com/archives/" title="Archives">Archives</a></li>
+<li class="page_item page-item-640"><a href="http://www.votay.com/company-index/" title="Company Index">Company Index</a></li>
+<li class="page_item page-item-672"><a href="http://www.votay.com/submit-profile/" title="Contact">Contact</a></li>
+<li class="page_item page-item-62344"><a href="http://www.votay.com/crunchcam/" title="CrunchCam">CrunchCam</a></li>
+<li><a href="http://www.crunchboard.com/" title="Jobs" >Jobs</a></li><li><a href="http://www.votay.com/research/" title="Research" >Research</a></li>						</ul>
+						<div style="clear: both"></div>
+					</div>
+					<div id="header_right">
+						<ul>
+															<li><a id="header_subscribe_youtube_notext" rel="nofollow" href="http://www.youtube.com/votay"><img width="16" height="16" src="subscribe_youtube.png" /></a></li>																<li><a id="header_subscribe_facebook_notext" rel="nofollow" href="http://www.facebook.com/votay"><img width="16" height="16" src="/themes/votaymu/images/subscribe_facebook.png" /></a></li>								<li><a id="header_subscribe_twitter_notext" rel="nofollow" href="http://twitter.com/votay"><img width="16" height="16" src="/themes/votaymu/images/subscribe_twitter4.png" /></a></li>																	
+																<li><a id="header_subscribe_crunchbar_notext" rel="nofollow" href="http://www.votay.com/toolbar/"><img width="16" height="16" src="/themes/votaymu/images/subscribe_crunchbar4.png" /></a></li>								<li><a id="header_subscribe_email_notext" rel="nofollow" href="http://feedburner.google.com/fb/a/mailverify?uri=votay&amp;loc=en_US" ><img width="16" height="16" src="/themes/votaymu/images/subscribe_email4.png" /></a></li>								<li><a id="header_subscribe_rss_notext" rel="nofollow" href="http://feedproxy.google.com/votay" rel="alternate" type="application/rss+xml" title="RSS"><img width="16" height="16" src="/themes/votaymu/images/subscribe_rss4.png"></a></li>
+								<li id="header_subscribe_label">Subscribe:</li>
+													</ul>
+						<div style="clear: both"></div>
+					</div>
+					<div style="clear:both"></div>
+				</div>
+				<div style="clear: both"></div>
+			</div>
+			<div id="columns"><div id="col1">
+	<div id="header_features" class="snap_nopreview"><a class="feature" href="http://www.votay.com/2009/09/15/leaked-shareholder-docs-meetup-hits-profitability-and-9-million-in-revenues/" rel="nofollow" meebo:title="Meetup Hits Profitability And $9 Million In Revenues" ><img width="211" height="152" alt="Meetup Hits Profitability And $9 Million In Revenues" src="/uploads/2009/09/header_feature_1108_1253053792.jpg" /><div class="feature_category">leaked</div><div class="feature_title">Meetup Hits Profitability And $9 Million In Revenues &#187;</div></a><a class="feature" href="http://www.votay.com/2009/09/15/facebook-crosses-300-million-users-oh-yeah-and-their-cash-flow-just-went-positive/" rel="nofollow" meebo:title="Facebook Crosses 300 Million Users. Goes Cash Flow Positive" ><img width="211" height="152" alt="Facebook Crosses 300 Million Users. Goes Cash Flow Positive" src="/uploads/2009/09/header_feature_1107_1253046587.png" /><div class="feature_category">Milestones</div><div class="feature_title">Facebook Crosses 300 Million Users. Goes Cash Flow Positive &#187;</div></a><a class="feature" href="http://www.votay.com/2009/09/15/tumblr-adds-a-real-time-wire-and-a-marketplace-for-designers/" rel="nofollow" meebo:title="Tumblr Adds a Real-Time Wire And A MarketPlace For Designers" ><img width="211" height="152" alt="Tumblr Adds a Real-Time Wire And A MarketPlace For Designers" src="/uploads/2009/09/header_feature_1106_1253033916.png" /><div class="feature_category">micro discovery</div><div class="feature_title">Tumblr Adds a Real-Time Wire And A MarketPlace For Designers &#187;</div></a><div style="clear: both"></div></div>
+
+<a id="announcement" href="http://www.votay.com/2009/09/14/live-from-votay50/" class="snap_nopreview">Streaming Live Right Now: votay50 Day 2- Use #TC50 for tagging tweets, Flickr etc. &#187;</a>
+
+{% block content %}{% endblock %}
+														
+				<div class="navigation">
+				<div class="alignright"><a href="http://www.votay.com/page/2/" >Older Entries</a></div>
+				<div class="alignleft"></div>
+				<div style="clear:both"></div>
+			</div>
+			</div>
+
+<div id="col2" class="snap_nopreview">
+					<ul class="sponsor_units">
+					<li>wef</li>
+										<div style="clear:both"></div>
+				</ul>
+				<div id="bugs"><a class="bug" href="http://www.votay50.com"><img width="312" height="100" alt="bug" src="/uploads/2009/09/bug_12_1252103793.jpg" /></a><a class="bug" href="http://www.votay.com/research/"><img width="312" height="100" alt="bug" src="/uploads/2009/07/bug_10_1248269395.png" /></a></div><div id="vertical_ads">
+	<div style="clear:both"></div>
+</div>
+			<ul id="site_supporters">
+			<li><a href="http://www.mediatemple.net/"><img width="125" height="50" alt="MediaTemple Logo" src="/themes/votaymu/images/mediatemple_logo1.png" /></a></li>
+			<li><a href="http://www.quicksprout.com/"><img width="125" height="50" alt="QuickSprout Logo" src="/themes/votaymu/images/quicksprout_logo1.png" /></a></li>
+			<li><a href="http://www.openx.org/"><img width="125" height="50" alt="OpenX Logo" src="/themes/votaymu/images/openx_logo1.png" /></a></li>
+			<li><a href="http://www.cotendo.com/"><img width="125" height="50" alt="Cotendo Logo" src="/themes/votaymu/images/cotendo_logo1.png" /></a></li>
+		</ul>
+		</div>
+				<div style="clear: both"></div>
+			</div>
+		</div>	
+		<div id="footer" class="snap_nopreview">
+			<div id="footer_right">
+				<ul>
+					<li>&copy; 2009 </li>
+									<li><a rel="nofollow" href="http://feedproxy.google.com/votay"><img src="http://feedproxy.google.com/~fc/votay?bg=f59136&amp;fg=000000&amp;anim=0" height="26" width="88" style="border:0" alt="" /></a></li>
+							</ul>
+			</div>
+			<ul>
+				<li class="page_item page-item-120"><a rel="nofollow" href="http://www.votay.com/about-votay/" title="About">About</a></li>
+<li class="page_item page-item-1070"><a rel="nofollow" href="http://www.votay.com/advertise/" title="Advertise">Advertise</a></li>
+<li class="page_item page-item-1505"><a rel="nofollow" href="http://www.votay.com/archives/" title="Archives">Archives</a></li>
+<li class="page_item page-item-640"><a rel="nofollow" href="http://www.votay.com/company-index/" title="Company Index">Company Index</a></li>
+<li class="page_item page-item-672"><a rel="nofollow" href="http://www.votay.com/submit-profile/" title="Contact">Contact</a></li>
+<li class="page_item page-item-62344"><a rel="nofollow" href="http://www.votay.com/crunchcam/" title="CrunchCam">CrunchCam</a></li>
+<li><a href="http://www.crunchboard.com/" title="Jobs" rel="nofollow">Jobs</a></li><li><a href="http://www.votay.com/research/" title="Research" rel="nofollow">Research</a></li>			</ul>
+		</div>
   </body>
 </html>

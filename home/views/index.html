@@ -2,29 +2,23 @@
 
 {% block content %}
 
-    <div id="page">
-      <div id="sidebar">
-        
-      </div>
-  
-      <div id="content">
-        <div id="header">
-          <h1>Welcome to Votay</h1>
-          <h2>It doesn't mean anything</h2>
-        </div>
-          
-        <div id="getting-started">
-
-        {% for post in list %}
-        <p>
-        <h1><a href="{{post.permalink}}">{{post.title}}</a></h1><br/>
-        by {{post.author_name}} on {{post.created_at|date:"F d, Y"}}<br/><br/>
-        {{post.preview}}
-        </p>       
-        {% endfor %}
-
-        </div>
-      </div>
-    </div>
-      
+{% for post in list %}
+<div class="excerpt" id="post-102591">
+  <div class="excerpt_header snap_nopreview"><a href="{{post.permalink}}" rel="bookmark" title="TC50: Demopit Winner Chyngle Creates In-Pocket Mobile Marketing Apps For Stadiums">{{post.title}}</a></div>
+  <div class="excerpt_subheader snap_nopreview" style="padding-bottom: 8px;">
+   	<div class="excerpt_subheader_left">
+	  	by <a rel="nofollow" href="http://www.votay.com/author/erick/" title="Posts by Erick Schonfeld">{{post.author_name}}</a> on {{post.created_at|date:"F d, Y"}}
+	  </div>
+	</div>
+	<div class="entry">
+	  <p><a rel="nofollow" href="{{post.permalink}}"><img src="Chyngle-120x200.png" width="120" height="200" /></a></p>
+    <p>What if the next time you went to a football game, there was an iPhone app for that stadium that listed all the bathrooms nearest you, all the food stalls (with menus and the ability to order from your seat), a button to contact medical assistance, and the ability to find car pools back home?  One of today&#8217;s Demopit winners at votay50 is <a href="http://www.chyngle.com/">Chyngle</a>, has created a branded app for the University of Michigan which does just that.</p>
+    <p>Chyngle&#8217;s branded apps use GPS to find out your location and discover services and people nearby. It shows them as red dots on a seating chart of the stadium.  If you want to order a slice of pizza, you can send an SMS message to one of the pizza vendors and they will deliver it to your seat.  If you want to find tickets for sale by other fans or a ride home, the app lets you call them anonymously (the calls are routed through Chyngle).</p>
+    <p>{{post.preview}}</p>
+	</div>
+	<div class="excerpt_entry_footer snap_nopreview"><a href="{{post.permalink}}" rel="nofollow">Read More</a></div>
+	<div style="clear:both"></div>
+</div>
+{% endfor %}					
+					      
 {% endblock %}

@@ -8,7 +8,11 @@ import util
 
 class MainHandler(webapp.RequestHandler):
   def get(self,path):
-    data = { 'title': 'Home' }
+    if len(path) > 0:
+      util.send404(self)
+      return
+      
+    data = { 'title': 'Open Source Blogging Software for Google App Engine' }
     
     query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at')
     list = query.fetch(20)
