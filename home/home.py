@@ -6,6 +6,13 @@ from google.appengine.ext.webapp import template
 import models
 import util
 
+class PageHandler(webapp.RequestHandler):
+  def get(self,path):      
+    if util.missingTrailingSlash(self):
+      return
+    data = { 'title': 'Open Source Blogging Software for Google App Engine' }    
+    self.response.out.write(template.render('views/'+path+'.html', data))
+
 class MainHandler(webapp.RequestHandler):
   def get(self,path):
     if len(path) > 0:
@@ -39,6 +46,7 @@ class BlogPostHandler(webapp.RequestHandler):
     
 def main():
   application = webapp.WSGIApplication([('/(\d\d\d\d)/(\d\d)/(\d\d)/(.*)', BlogPostHandler),
+                                        ('/(about|advertise|contact)/*', PageHandler),
                                         ('/(.*)', MainHandler)
                                         ],
                                        debug=True)
