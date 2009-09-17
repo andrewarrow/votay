@@ -8,3 +8,10 @@ class BlogPost(db.Model):
   created_at = db.DateTimeProperty(auto_now_add=True)
   author_key = db.StringProperty()
   author_name = db.StringProperty()
+  
+class ImageData(db.Model):
+  filename = db.StringProperty()
+  width = db.IntegerProperty()
+  height = db.IntegerProperty()
+  data = db.BlobProperty()
+  

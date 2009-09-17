@@ -1,0 +1,34 @@
+{% extends "layouts/admin.html" %}
+
+{% block content %}
+
+    <div id="page">
+      <div id="sidebar">
+
+      </div>
+  
+      <div id="content">
+        <div id="header">
+          <h1>Welcome to Votay</h1>
+          <h2>It doesn't mean anything</h2>
+        </div>
+          
+        <div id="getting-started">
+          <h1>Upload Image</h1>
+          <br/>
+                   
+          <form method="POST" enctype="multipart/form-data" action="/admin/image_post">
+          
+          <input type="file" name="img">
+          <br/>
+          <br/>
+          
+          <input type="submit" value="Create Post"/>
+          
+          </form>
+          
+        </div>
+      </div>
+    </div>
+      
+{% endblock %}
