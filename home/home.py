@@ -15,8 +15,18 @@ class ImageHandler(webapp.RequestHandler):
       util.send404(self)
       return
       
-    self.response.headers['Content-Type'] = 'image/png' 
-    self.response.out.write(list[0].data)
+    image = list[0]    
+    parts = image.filename.split('.')
+    extension = parts[len(parts)-1]
+    
+    if extension == 'png':
+      self.response.headers['Content-Type'] = 'image/png'
+    if extension == 'jpeg' or extension == 'jpg':
+      self.response.headers['Content-Type'] = 'image/jpeg'
+    if extension == 'gif':
+      self.response.headers['Content-Type'] = 'image/gif'
+    
+    self.response.out.write(image.data)
 
 class PageHandler(webapp.RequestHandler):
   def get(self,path):      
