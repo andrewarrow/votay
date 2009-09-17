@@ -6,6 +6,18 @@ from google.appengine.ext.webapp import template
 import models
 import util
 
+class ImageHandler(webapp.RequestHandler): 
+  def get(self,filename):
+    query = db.GqlQuery('SELECT * FROM ImageData WHERE filename = :1', filename)
+    list = query.fetch(1)
+
+    if len(list) == 0:
+      util.send404(self)
+      return
+      
+    self.response.headers['Content-Type'] = 'image/png' 
+    self.response.out.write(list[0].data)
+
 class PageHandler(webapp.RequestHandler):
   def get(self,path):      
     if util.missingTrailingSlash(self):
@@ -55,6 +67,7 @@ def main():
   application = webapp.WSGIApplication([('/(\d\d\d\d)/(\d\d)/(\d\d)/(.*)', BlogPostHandler),
                                         ('/(about|advertise|contact)/*', PageHandler),
                                         ('/archives/*', ArchivesHandler),
+                                        ('/blog-image/(.*)', ImageHandler),
                                         ('/(.*)', MainHandler)
                                         ],
                                        debug=True)
