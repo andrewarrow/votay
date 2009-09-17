@@ -10,8 +10,15 @@ class PageHandler(webapp.RequestHandler):
   def get(self,path):      
     if util.missingTrailingSlash(self):
       return
-    data = { 'title': 'Open Source Blogging Software for Google App Engine' }    
+    data = { 'title': path.capitalize() + ' - Open Source Blogging Software for Google App Engine' }    
     self.response.out.write(template.render('views/'+path+'.html', data))
+    
+class ArchivesHandler(webapp.RequestHandler):
+  def get(self):      
+    if util.missingTrailingSlash(self):
+      return
+    data = { 'title':'Archives - Open Source Blogging Software for Google App Engine' }    
+    self.response.out.write(template.render('views/archives.html', data))    
 
 class MainHandler(webapp.RequestHandler):
   def get(self,path):
@@ -47,6 +54,7 @@ class BlogPostHandler(webapp.RequestHandler):
 def main():
   application = webapp.WSGIApplication([('/(\d\d\d\d)/(\d\d)/(\d\d)/(.*)', BlogPostHandler),
                                         ('/(about|advertise|contact)/*', PageHandler),
+                                        ('/archives/*', ArchivesHandler),
                                         ('/(.*)', MainHandler)
                                         ],
                                        debug=True)
