@@ -1,62 +1,12 @@
 {% extends "layouts/admin.html" %}
 
 {% block content %}
-
-    <div id="page">
-      <div id="sidebar">
-        <ul id="sidebar-items">
-          <li>Hello</li>
-        
-          <li>
-            <h3>Join the community</h3>
-            <ul class="links">
-              <li><a href="#">Not yet</a></li>
-              <li><a href="#">Not yet</a></li>
-              <li><a href="#">Wiki</a></li>
-            </ul>
-          </li>
           
-          <li>
-            <h3>Browse the documentation</h3>
-            <ul class="links">
-              <li><a href="#">API</a></li>
-              <li><a href="#">Standard library</a></li>
-              <li><a href="#">Core</a></li>
-              <li><a href="#">Guides</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-  
-      <div id="content">
-        <div id="header">
-          <h1>Welcome to <a href="/">Votay</a></h1>
-          <h2>It doesn't mean anything</h2>
+        <div id="getting-started">          
+          <ul>          
+            <li><a href="/admin/create">Create Post</a></li>
+            <li><a href="/admin/image">Upload Image</a></li>            
+          </ul>
         </div>
-          
-        <div id="getting-started">
-          <h1>Getting started</h1>
-          <h2>Here&rsquo;s how to get votaying:</h2>
-          
-          <ol>          
-            <li>
-              <h2>Create a first blog post</h2>
-              <p><a href="/admin/create">Create Post</a></p>
-            </li>
-
-            <li>
-              <h2>Upload an Image</h2>
-              <p><a href="/admin/image">Update Image</a></p>
-            </li>
-            
-            <li>
-              <h2>Not yet</h2>
-              <p>I said not yet.</p>
-            </li>
-  
-          </ol>
-        </div>
-      </div>
-    </div>      
       
 {% endblock %}
