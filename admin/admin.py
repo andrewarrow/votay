@@ -22,7 +22,7 @@ class EditHandler(webapp.RequestHandler):
   def get(self):
     data = { 'title': 'Admin Edit' }
 
-    post = db.get(db.Key(self.request.get('key')))    
+    post = db.get(db.Key(self.request.get('key')))
     data.update({'post': post})
     self.response.out.write(template.render('views/create.html', data))
 
@@ -54,10 +54,22 @@ class ImagePostHandler(webapp.RequestHandler):
     self.redirect('/admin', permanent=False)
     
 class CreatePostHandler(webapp.RequestHandler):
+  def extract_preview(self,markup):
+    lines = markup.split("\n")
+    buff = []
+    for line in lines:
+      if line.strip() == '---':
+        break
+      buff.append(line)
+    return ''.join(buff)
+    
   def post(self):
     if self.request.get('key'):
       post = db.get(db.Key(self.request.get('key'))) 
       post.title=self.request.get('title')
+      post.image=self.request.get('image')
+      post.markup=self.request.get('ta')
+      post.preview = self.extract_preview(post.markup)
     else:  
       post = models.BlogPost(title=self.request.get('title'),
                  markup=self.request.get('ta'),
@@ -73,6 +85,7 @@ class CreatePostHandler(webapp.RequestHandler):
         day = '0' + day
   
       post.permalink = str(post.created_at.year) + '/' + month + '/' + day + '/this-is-a-test-title/'
+      post.preview = self.extract_preview(post.markup)
     post.put()
     self.redirect('/admin', permanent=False)
     

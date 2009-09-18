@@ -2,8 +2,8 @@ from google.appengine.ext import db
 
 class BlogPost(db.Model):
   title = db.StringProperty()
-  preview = db.StringProperty()
-  markup = db.StringProperty()
+  preview = db.TextProperty()
+  markup = db.TextProperty()
   permalink = db.StringProperty()
   created_at = db.DateTimeProperty(auto_now_add=True)
   author_key = db.StringProperty()
