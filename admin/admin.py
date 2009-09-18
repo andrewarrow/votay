@@ -32,10 +32,12 @@ class ImagePostHandler(webapp.RequestHandler):
         
     image = images.Image(self.request.get("img"))
     image_data = models.ImageData(data=self.request.get("img"),
-                                  filename=filename,
+                                  filename=filename)
+    image_meta_data = models.ImageMetaData(filename=filename,
                                   width=image.width,
                                   height=image.height)
     image_data.put()
+    image_meta_data.put()
     self.redirect('/admin', permanent=False)
     
 class CreatePostHandler(webapp.RequestHandler):

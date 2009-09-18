@@ -3,22 +3,31 @@
 {% block content %}
 
 <div id="header_features" class="snap_nopreview">
-	<a class="feature" href="#/" rel="nofollow" ><img width="211" height="152" alt="" src="/blog-image/a211x152.png" /><div class="feature_category">Lorem ipsum</div><div class="feature_title">	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor...</div></a><a class="feature" href="#" rel="nofollow"><img width="211" height="152" alt="" src="/blog-image/b211x152.png" /><div class="feature_category">Lorem ipsum</div><div class="feature_title">	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor...</div></a><a class="feature" href="#" rel="nofollow"><img width="211" height="152" alt="" src="/blog-image/c211x152.png" /><div class="feature_category">Lorem ipsum</div><div class="feature_title">	Lorem ipsum dolor sit amet, consectetur adipisicing elit...</div></a><div style="clear: both">
+{% for feature in features %}
+	<a class="feature" href="{{feature.permalink}}" rel="nofollow" ><img width="211" height="152" alt="" src="/blog-image/{{feature.image}}" /><div class="feature_category">{{feature.title}}</div><div class="feature_title">{{feature.preview}}...</div></a>
+{% endfor %}
+
+{% if features %}
+{% else %}
+	<a class="feature" href="#" rel="nofollow" ><img width="211" height="152" alt="" src="/images/feature_a_211x152.png" /><div class="feature_category">Feature A</div><div class="feature_title">You have not added any feature posts yet...</div></a>
+	<a class="feature" href="#" rel="nofollow"><img width="211" height="152" alt="" src="/images/feature_b_211x152.png" /><div class="feature_category">Feature B</div><div class="feature_title">These sample features will have to do...</div></a><a class="feature" href="#" rel="nofollow"><img width="211" height="152" alt="" src="/images/feature_c_211x152.png" /><div class="feature_category">Feature C</div><div class="feature_title">You can add them in the admin section...</div></a>
+{% endif %}	
+	<div style="clear: both">
 	</div>
 </div>
 
-<a id="announcement" href="#" class="snap_nopreview">	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor</a>
+<a id="announcement" href="#" class="snap_nopreview">This is where an important announcement would go so everyone would see it.</a>
 
-{% for post in list %}
+{% for post in posts %}
 <div class="excerpt">
-  <div class="excerpt_header snap_nopreview"><a href="{{post.permalink}}" rel="bookmark" title="TC50: Demopit Winner Chyngle Creates In-Pocket Mobile Marketing Apps For Stadiums">{{post.title}}</a></div>
+  <div class="excerpt_header snap_nopreview"><a href="{{post.permalink}}" rel="bookmark" title="{{post.title}}">{{post.title}}</a></div>
   <div class="excerpt_subheader snap_nopreview" style="padding-bottom: 8px;">
    	<div class="excerpt_subheader_left">
-	  	by <a rel="nofollow" href="http://www.votay.com/author/erick/" title="Posts by Erick Schonfeld">{{post.author_name}}</a> on {{post.created_at|date:"F d, Y"}}
+	  	by <a rel="nofollow" href="/author/" title="Posts by {{post.author_name}}">{{post.author_name}}</a> on {{post.created_at|date:"F d, Y"}}
 	  </div>
 	</div>
 	<div class="entry">
-	  <p><a rel="nofollow" href="{{post.permalink}}"><img src="Chyngle-120x200.png" width="120" height="200" /></a></p>
+	  <p><a rel="nofollow" href="{{post.permalink}}"><img src="/images/post_a_128x128.png" width="128" height="128" /></a></p>
     <p>	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <a href="http://www.chyngle.com/">Chyngle</a>, 	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     <p>Chyngle&#8217;s 	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
     <p>{{post.preview}}</p>
@@ -27,6 +36,41 @@
 	<div style="clear:both"></div>
 </div>
 {% endfor %}
+
+{% if posts %}
+{% else %}
+<div class="excerpt">
+  <div class="excerpt_header snap_nopreview"><a href="#" rel="bookmark" title="You Have Not Added any Blog Posts Yet!">You Have Not Added any Blog Posts Yet!</a></div>
+  <div class="excerpt_subheader snap_nopreview" style="padding-bottom: 8px;">
+   	<div class="excerpt_subheader_left">
+	  	by <a rel="nofollow" href="/author/" title="Posts by Your Name">Your Name</a> on January 1, 2008
+	  </div>
+	</div>
+	<div class="entry">
+	  <p><a rel="nofollow" href="#"><img src="/images/post_a_128x128.png" width="128" height="128" /></a></p>
+    <p>	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <a href="http://www.namegraphs.com/">namegraphs.com</a>, 	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
+	</div>
+	<div class="excerpt_entry_footer snap_nopreview"><a href="{{post.permalink}}" rel="nofollow">Read More</a></div>
+	<div style="clear:both"></div>
+</div>
+
+<div class="excerpt">
+  <div class="excerpt_header snap_nopreview"><a href="#" rel="bookmark" title="You Have Not Added any Blog Posts Yet!">You Still Have Not Added any Blog Posts</a></div>
+  <div class="excerpt_subheader snap_nopreview" style="padding-bottom: 8px;">
+   	<div class="excerpt_subheader_left">
+	  	by <a rel="nofollow" href="/author/" title="Posts by Your Name">Mr. Sample</a> on January 1, 2008
+	  </div>
+	</div>
+	<div class="entry">
+	  <p><a rel="nofollow" href="#"><img src="/images/post_b_128x128.png" width="128" height="128" /></a></p>
+    <p>	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <a href="http://www.namegraphs.com/">namegraphs.com</a>, 	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
+	</div>
+	<div class="excerpt_entry_footer snap_nopreview"><a href="{{post.permalink}}" rel="nofollow">Read More</a></div>
+	<div style="clear:both"></div>
+</div>
+{% endif %}
 
 <div class="navigation">
   <div class="center"><a href="http://www.votay.com/page/2/" >Older Entries</a></div>

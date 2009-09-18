@@ -48,12 +48,16 @@ class MainHandler(webapp.RequestHandler):
       util.send404(self)
       return
       
-    data = { 'title': 'Open Source Blogging Software for Google App Engine' }
+    data = { 'title': 'Open Source Blogging Software for Google App Engine' }    
+    
+    query = db.GqlQuery('SELECT * FROM Feature ORDER BY created_at')
+    features = query.fetch(3)
     
     query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at')
-    list = query.fetch(20)
+    posts = query.fetch(20)
     
-    data.update({'list': list})
+    data.update({'features': features})
+    data.update({'posts': posts})
     self.response.out.write(template.render('views/index.html', data))
 
 class BlogPostHandler(webapp.RequestHandler):
