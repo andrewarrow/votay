@@ -7,6 +7,7 @@ from google.appengine.ext.webapp import template
 import os
 import sys
 import models
+import re
 
 class MainHandler(webapp.RequestHandler):
   def get(self,path):
@@ -58,7 +59,7 @@ class CreatePostHandler(webapp.RequestHandler):
     lines = markup.split("\n")
     buff = []
     for line in lines:
-      if line.strip() == '---':
+      if line.strip() == '<!-- break -->':
         break
       buff.append(line)
     return ''.join(buff)
@@ -84,7 +85,9 @@ class CreatePostHandler(webapp.RequestHandler):
       if len(day) == 1:
         day = '0' + day
   
-      post.permalink = str(post.created_at.year) + '/' + month + '/' + day + '/this-is-a-test-title/'
+      permalink = re.sub(r'def\s+([a-zA-Z_][a-zA-Z_0-9]*)\s*\(\s*\):', '-', post.title.lower())
+      sys.stderr.write(permalink)
+      post.permalink = str(post.created_at.year) + '/' + month + '/' + day + '/' + permalink + '/'
       post.preview = self.extract_preview(post.markup)
     post.put()
     self.redirect('/admin', permanent=False)
