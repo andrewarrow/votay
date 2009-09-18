@@ -42,8 +42,9 @@ class ImagePostHandler(webapp.RequestHandler):
     
 class CreatePostHandler(webapp.RequestHandler):
   def post(self):
-    bp = models.BlogPost(title='This is a test title',
-                 markup='More testing',
+    bp = models.BlogPost(title=self.request.get('title'),
+                 markup=self.request.get('ta'),
+                 image=self.request.get('image'),
                  preview='More testing',
                  author_key='',
                  author_name='Andrew Arrow')

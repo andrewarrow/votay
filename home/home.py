@@ -56,6 +56,12 @@ class MainHandler(webapp.RequestHandler):
     query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at')
     posts = query.fetch(20)
     
+    for post in posts:
+      query = db.GqlQuery('SELECT * FROM ImageMetaData WHERE filename = :1', post.image)
+      list = query.fetch(1)
+      if len(list) == 1:
+        post.imageMeta = list[0]
+    
     data.update({'features': features})
     data.update({'posts': posts})
     self.response.out.write(template.render('views/index.html', data))
