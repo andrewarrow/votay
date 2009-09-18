@@ -75,8 +75,7 @@ class CreatePostHandler(webapp.RequestHandler):
       post = models.BlogPost(title=self.request.get('title'),
                  markup=self.request.get('ta'),
                  image=self.request.get('image'),
-                 preview='More testing',
-                 author_key='',
+                 author_permalink='andrew-arrow',
                  author_name='Andrew Arrow')
       month = str(post.created_at.month)
       if len(month) == 1:
@@ -84,10 +83,8 @@ class CreatePostHandler(webapp.RequestHandler):
       day = str(post.created_at.day)
       if len(day) == 1:
         day = '0' + day
-  
-      permalink = re.sub(r'def\s+([a-zA-Z_][a-zA-Z_0-9]*)\s*\(\s*\):', '-', post.title.lower())
-      sys.stderr.write(permalink)
-      post.permalink = str(post.created_at.year) + '/' + month + '/' + day + '/' + permalink + '/'
+        
+      post.permalink = '/' + str(post.created_at.year) + '/' + month + '/' + day + '/' + re.sub('[^a-z0-9]', '-', post.title.lower()) + '/'
       post.preview = self.extract_preview(post.markup)
     post.put()
     self.redirect('/admin', permanent=False)

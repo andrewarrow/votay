@@ -42,6 +42,24 @@ class ArchivesHandler(webapp.RequestHandler):
     data = { 'title':'Archives - Open Source Blogging Software for Google App Engine' }    
     self.response.out.write(template.render('views/archives.html', data))    
 
+class AuthorHandler(webapp.RequestHandler):
+  def get(self,permalink):      
+    if util.missingTrailingSlash(self):
+      return
+    data = { 'title':'Andrew Arrow' }    
+        
+    query = db.GqlQuery('SELECT * FROM BlogPost WHERE author_permalink = :1 ORDER BY created_at', permalink[0:-1])
+    posts = query.fetch(20)
+    
+    for post in posts:
+      query = db.GqlQuery('SELECT * FROM ImageMetaData WHERE filename = :1', post.image)
+      list = query.fetch(1)
+      if len(list) == 1:
+        post.imageMeta = list[0]
+    
+    data.update({'posts': posts})    
+    self.response.out.write(template.render('views/author.html', data))    
+
 class MainHandler(webapp.RequestHandler):
   def get(self,path):
     if len(path) > 0:
@@ -71,22 +89,30 @@ class BlogPostHandler(webapp.RequestHandler):
     if util.missingTrailingSlash(self):
       return
       
-    permalink = ''.join([year, '/', month, '/', day, '/', title])
+    permalink = ''.join(['/', year, '/', month, '/', day, '/', title])
     query = db.GqlQuery('SELECT * FROM BlogPost WHERE permalink = :1', permalink)
     list = query.fetch(1)
 
     if len(list) == 0:
       util.send404(self)
       return
+      
+    post = list[0]
      
-    data = { 'title': list[0].title }     
-    data.update({'post': list[0]})
+    query = db.GqlQuery('SELECT * FROM ImageMetaData WHERE filename = :1', post.image)
+    list = query.fetch(1)
+    if len(list) == 1:
+      post.imageMeta = list[0]
+     
+    data = { 'title': post.title }
+    data.update({'post': post})
     self.response.out.write(template.render('views/blog_post.html', data))
     
 def main():
   application = webapp.WSGIApplication([('/(\d\d\d\d)/(\d\d)/(\d\d)/(.*)', BlogPostHandler),
                                         ('/(about|advertise|contact)/*', PageHandler),
                                         ('/archives/*', ArchivesHandler),
+                                        ('/author/(.*)', AuthorHandler),
                                         ('/blog-image/(.*)', ImageHandler),
                                         ('/(.*)', MainHandler)
                                         ],

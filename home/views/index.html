@@ -23,12 +23,12 @@
   <div class="excerpt_header snap_nopreview"><a href="{{post.permalink}}" rel="bookmark" title="{{post.title}}">{{post.title}}</a></div>
   <div class="excerpt_subheader snap_nopreview" style="padding-bottom: 8px;">
    	<div class="excerpt_subheader_left">
-	  	by <a rel="nofollow" href="/author/" title="Posts by {{post.author_name}}">{{post.author_name}}</a> on {{post.created_at|date:"F d, Y"}}
+	  	by <a rel="nofollow" href="/author/{{post.author_permalink}}/" title="Posts by {{post.author_name}}">{{post.author_name}}</a> on {{post.created_at|date:"F d, Y"}}
 	  </div>
 	</div>
 	<div class="entry">
 	  <p><a rel="nofollow" href="{{post.permalink}}"><img src="/blog-image/{{post.imageMeta.filename}}" width="{{post.imageMeta.width}}" height="{{post.imageMeta.height}}" /></a></p>
-    <p>{{post.preview}}</p>
+    {{post.preview}}
 	</div>
 	<div class="excerpt_entry_footer snap_nopreview"><a href="{{post.permalink}}" rel="nofollow">Read More</a></div>
 	<div style="clear:both"></div>
@@ -70,10 +70,11 @@
 </div>
 {% endif %}
 
+<!--
 <div class="navigation">
   <div class="center"><a href="/page/2/" >Older Entries</a></div>
   <div class="alignleft"></div>
   <div style="clear:both"></div>
 </div>
-      
+-->  
 {% endblock %}

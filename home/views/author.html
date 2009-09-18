@@ -2,6 +2,7 @@
 
 {% block content %}
 
+{% for post in posts %}
 <div class="excerpt">
   <div class="excerpt_header snap_nopreview"><a href="{{post.permalink}}" rel="bookmark" title="{{post.title}}">{{post.title}}</a></div>
   <div class="excerpt_subheader snap_nopreview" style="padding-bottom: 8px;">
@@ -10,10 +11,12 @@
 	  </div>
 	</div>
 	<div class="entry">
-	  <p><img src="/blog-image/{{post.imageMeta.filename}}" width="{{post.imageMeta.width}}" height="{{post.imageMeta.height}}" /></p>
-    {{post.markup}}
+	  <p><a rel="nofollow" href="{{post.permalink}}"><img src="/blog-image/{{post.imageMeta.filename}}" width="{{post.imageMeta.width}}" height="{{post.imageMeta.height}}" /></a></p>
+    {{post.preview}}
 	</div>
+	<div class="excerpt_entry_footer snap_nopreview"><a href="{{post.permalink}}" rel="nofollow">Read More</a></div>
 	<div style="clear:both"></div>
 </div>
-      
+{% endfor %}
+
 {% endblock %}

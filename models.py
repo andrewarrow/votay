@@ -6,7 +6,7 @@ class BlogPost(db.Model):
   markup = db.TextProperty()
   permalink = db.StringProperty()
   created_at = db.DateTimeProperty(auto_now_add=True)
-  author_key = db.StringProperty()
+  author_permalink = db.StringProperty()
   author_name = db.StringProperty()
   image = db.StringProperty()
   
