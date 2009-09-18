@@ -15,6 +15,7 @@ handlers:
 
 - url: /admin.*
   script: admin/admin.py
+  login: admin
 
 - url: /.*
   script: home/home.py
