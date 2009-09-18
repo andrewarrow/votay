@@ -53,7 +53,7 @@ class MainHandler(webapp.RequestHandler):
     query = db.GqlQuery('SELECT * FROM Feature ORDER BY created_at')
     features = query.fetch(3)
     
-    query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at')
+    query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at desc')
     posts = query.fetch(20)
     
     for post in posts:

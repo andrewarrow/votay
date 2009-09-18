@@ -2,11 +2,23 @@
 
 {% block content %}
           
-        <div id="getting-started">          
-          <ul>          
-            <li><a href="/admin/create">Create Post</a></li>
-            <li><a href="/admin/image">Upload Image</a></li>            
-          </ul>
+        <div>       
+<a href="/admin/create">Create Post</a>
+<br/>
+<br/>
+{% for post in posts %}
+<a href="/admin/edit?key={{post.key}}">edit</a> {{post.title}}
+<br/>
+{% endfor %}
+
+</div>
+
+
+<br/>
+<br/>
+
+        <div>
+<a href="/admin/image">Upload Image</a>
         </div>
       
 {% endblock %}

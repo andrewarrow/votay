@@ -7,7 +7,7 @@
           <br/>
                    
           <form method="POST" action="/admin/create_post">
-          Title: <input type="text" name="title" size="50"/>
+          Title: <input type="text" name="title" size="50" value="{{post.title}}"/>
           
           <br/>
           <br/>
@@ -22,6 +22,7 @@
           <br/>
           <br/>
           
+          <input type="hidden" name="key" value="{{post.key}}"/>
           <input type="submit" value="Create Post"/>
           
           </form>
