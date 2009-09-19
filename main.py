@@ -8,7 +8,8 @@ import sys
 
 class MainHandler(webapp.RequestHandler):
   def get(self,path):
-    self.response.out.write('hi')
+    self.response.headers['Content-Type'] = 'text/plain'
+    self.response.out.write('User-agent: *')
     
 def main():
   application = webapp.WSGIApplication([('/(.*)', MainHandler)

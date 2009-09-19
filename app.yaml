@@ -17,6 +17,9 @@ handlers:
   script: admin/admin.py
   login: admin
 
+- url: /robots.txt
+  script: main.py
+
 - url: /.*
   script: home/home.py
   
