@@ -74,7 +74,7 @@ a.shot, a.shot2					{ float: none !important; margin: auto !important; }
 #header_features 						{ height: 255px; overflow: hidden; background: #ffffff; border: 0px solid #7a8fa4; padding: 0 1px 0 1px; margin: 0 0 3px 0; }
 #header_features .feature				{ position: relative; width: 217px; height: 249px; display: block; color: black; font-weight: normal; background: white; border: 0px solid #7a8fa4; margin: 2px 1px 2px 1px; float: left;  }
 #header_features .feature:hover			{ border-color: #1e3044; background: #ffffff !important; text-decoration: none !important; }
-#header_features .feature img			{ width: 211px; height: 152px; margin: 3px; border-bottom: 0px solid #d9d9d9; padding-bottom: 3px;  }
+#header_features .feature img			{ width: 211px; height: 152px; margin-bottom: 4px; border: 1px solid #cdcdcd; padding-bottom: 0px;  }
 #header_features .feature_category 		{ font-weight: bold; font-size: .95em; margin: 0px 7px 1px 7px; }
 #header_features .feature_category:hover { font-weight: bold; font-size: .95em; margin: 0px 7px 1px 7px; text-decoration: underline;}
 #header_features .feature_title			{ margin: 0 7px 14px 7px; font-size: 1.1em }
