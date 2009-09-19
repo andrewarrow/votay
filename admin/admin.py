@@ -16,6 +16,10 @@ class MainHandler(webapp.RequestHandler):
     query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at desc')
     posts = query.fetch(20)    
     data.update({'posts': posts})
+
+    query = db.GqlQuery('SELECT * FROM Feature ORDER BY created_at desc')
+    features = query.fetch(20)    
+    data.update({'features': features})
     
     self.response.out.write(template.render('views/index.html', data))
 
@@ -27,10 +31,23 @@ class EditHandler(webapp.RequestHandler):
     data.update({'post': post})
     self.response.out.write(template.render('views/create.html', data))
 
+class EditFeatureHandler(webapp.RequestHandler):
+  def get(self):
+    data = { 'title': 'Admin Edit Feature' }
+
+    feature = db.get(db.Key(self.request.get('key')))
+    data.update({'feature': feature})
+    self.response.out.write(template.render('views/create_feature.html', data))
+
 class CreateHandler(webapp.RequestHandler):
   def get(self):
     data = { 'title': 'Admin Create' }
     self.response.out.write(template.render('views/create.html', data))
+
+class CreateFeatureHandler(webapp.RequestHandler):
+  def get(self):
+    data = { 'title': 'Admin Create Feature' }
+    self.response.out.write(template.render('views/create_feature.html', data))
 
 class ImageHandler(webapp.RequestHandler):
   def get(self):
@@ -89,11 +106,30 @@ class CreatePostHandler(webapp.RequestHandler):
     post.put()
     self.redirect('/admin', permanent=False)
     
+class CreateFeaturePostHandler(webapp.RequestHandler):
+  def post(self):
+    if self.request.get('key'):
+      feature           = db.get(db.Key(self.request.get('key'))) 
+      feature.title     = self.request.get('title')
+      feature.image     = self.request.get('image')
+      feature.preview   = self.request.get('ta')
+      feature.permalink = self.request.get('permalink')
+    else:  
+      feature = models.Feature(title=self.request.get('title'),
+                 preview=self.request.get('ta'),
+                 image=self.request.get('image'),
+                 permalink=self.request.get('permalink'))
+    feature.put()
+    self.redirect('/admin', permanent=False)    
+    
 def main():
   application = webapp.WSGIApplication([('/admin/create_post', CreatePostHandler),
                                         ('/admin/create', CreateHandler),
+                                        ('/admin/create_feature', CreateFeatureHandler),
+                                        ('/admin/create_feature_post', CreateFeaturePostHandler),
                                         ('/admin/image_post', ImagePostHandler),
                                         ('/admin/image', ImageHandler),
+                                        ('/admin/edit_feature.*', EditFeatureHandler),
                                         ('/admin/edit.*', EditHandler),
                                          ('/(.*)', MainHandler)
                                         ],

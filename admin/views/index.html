@@ -2,7 +2,22 @@
 
 {% block content %}
           
-        <div>       
+<div>
+<a href="/admin/create_feature">Create Feature</a>
+<br/>
+<br/>
+{% for feature in features %}
+<a href="/admin/edit_feature?key={{feature.key}}">edit</a> {{feature.title}}
+<br/>
+{% endfor %}
+
+</div>
+
+
+<br/>
+<br/>
+
+<div>
 <a href="/admin/create">Create Post</a>
 <br/>
 <br/>

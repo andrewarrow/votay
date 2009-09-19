@@ -1,0 +1,38 @@
+{% extends "layouts/admin.html" %}
+
+{% block content %}
+          
+<div id="getting-started">
+  <h1>Create Feature</h1>
+  <br/>
+           
+  <form method="POST" action="/admin/create_feature_post">
+  Title: <input type="text" name="title" size="50" value="{{feature.title}}"/>
+  
+  <br/>
+  <br/>
+  Permalink: <input type="text" name="permalink" size="50" value="{{feature.permalink}}"/>
+  
+  <br/>
+  <br/>
+
+
+  Image Filename: <input type="text" name="image" value="{{feature.image}}" size="50"/>
+  
+  <br/>
+  <br/>
+
+  Preview:
+  
+  <textarea name="ta" rows="20" cols="50">{{feature.preview}}</textarea>
+  <br/>
+  <br/>
+  
+  <input type="hidden" name="key" value="{{feature.key}}"/>
+  <input type="submit" value="Create/Update"/>
+  
+  </form>
+  
+</div>
+      
+{% endblock %}
