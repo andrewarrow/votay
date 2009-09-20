@@ -3,7 +3,34 @@
 {% block content %}
 
 <div class="excerpt">
-hi
+
+<form method="POST">
+
+Name:
+<br/>
+<input type="text" name="name" size="50"/>
+<br/>
+This is the name people will see associated with comments you write.
+<br/>
+You can use your real name or a nickname if you'd like.
+
+<br/>
+<br/>
+URL:
+<br/>
+<input type="text" name="url" size="50"/>
+<br/>
+When your name is displayed it will be linked to this URL.
+<br/>
+People usually set it to their blog or company website.
+<br/>
+You can also use your linkedin, twitter or facebook profile URL.
+
+<br/>
+<br/>
+<input type="submit" value="Set Name"/>
+</form>
+
 </div>
 
 {% endblock %}
