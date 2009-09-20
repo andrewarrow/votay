@@ -1,0 +1,25 @@
+{% extends "layouts/admin.html" %}
+
+{% block content %}
+          
+<div id="getting-started">
+  <h1>Create Author</h1>
+  <br/>
+           
+  <form method="POST" action="/admin/create_author_post">
+  Name: <input type="text" name="name" size="50"/>
+  
+  <br/>
+  <br/>
+  Permalink: <input type="text" name="permalink" size="50"/>
+  
+  <br/>
+  <br/>
+
+  <input type="submit" value="Create/Update"/>
+  
+  </form>
+  
+</div>
+      
+{% endblock %}

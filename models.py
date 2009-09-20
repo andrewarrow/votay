@@ -27,3 +27,7 @@ class Feature(db.Model):
   position = db.IntegerProperty()
   created_at = db.DateTimeProperty(auto_now_add=True)
   image = db.StringProperty()
+
+class Author(db.Model):
+  author_name = db.StringProperty()
+  author_permalink = db.StringProperty()

@@ -29,6 +29,14 @@ class EditHandler(webapp.RequestHandler):
 
     post = db.get(db.Key(self.request.get('key')))
     data.update({'post': post})
+    
+    query = db.GqlQuery('SELECT * FROM Author ORDER BY author_name')
+    authors = query.fetch(20)
+    for author in authors:
+      if author.author_permalink == post.author_permalink:
+        author.selected = 'selected="true"'
+    data.update({'authors': authors})
+    
     self.response.out.write(template.render('views/create.html', data))
 
 class EditFeatureHandler(webapp.RequestHandler):
@@ -42,12 +50,22 @@ class EditFeatureHandler(webapp.RequestHandler):
 class CreateHandler(webapp.RequestHandler):
   def get(self):
     data = { 'title': 'Admin Create' }
+    
+    query = db.GqlQuery('SELECT * FROM Author ORDER BY author_name')
+    authors = query.fetch(20)
+    data.update({'authors': authors})
+    
     self.response.out.write(template.render('views/create.html', data))
 
 class CreateFeatureHandler(webapp.RequestHandler):
   def get(self):
     data = { 'title': 'Admin Create Feature' }
     self.response.out.write(template.render('views/create_feature.html', data))
+
+class CreateAuthorHandler(webapp.RequestHandler):
+  def get(self):
+    data = { 'title': 'Admin Create Author' }
+    self.response.out.write(template.render('views/create_author.html', data))
 
 class ImageHandler(webapp.RequestHandler):
   def get(self):
@@ -82,18 +100,22 @@ class CreatePostHandler(webapp.RequestHandler):
     return ''.join(buff)
     
   def post(self):
+    author_info = self.request.get('author').split('|')
+        
     if self.request.get('key'):
       post = db.get(db.Key(self.request.get('key'))) 
       post.title=self.request.get('title')
       post.image=self.request.get('image')
       post.markup=self.request.get('ta')
       post.preview = self.extract_preview(post.markup)
+      post.author_permalink=author_info[0]
+      post.author_name=author_info[1]
     else:  
       post = models.BlogPost(title=self.request.get('title'),
                  markup=self.request.get('ta'),
                  image=self.request.get('image'),
-                 author_permalink='andrew-arrow',
-                 author_name='Andrew Arrow')
+                 author_permalink=author_info[0],
+                 author_name=author_info[1])
       month = str(post.created_at.month)
       if len(month) == 1:
         month = '0' + month
@@ -120,6 +142,13 @@ class CreateFeaturePostHandler(webapp.RequestHandler):
                  image=self.request.get('image'),
                  permalink=self.request.get('permalink'))
     feature.put()
+    self.redirect('/admin', permanent=False)
+    
+class CreateAuthorPostHandler(webapp.RequestHandler):
+  def post(self):
+    author = models.Author(author_name=self.request.get('name'),
+                 author_permalink=self.request.get('permalink'))
+    author.put()
     self.redirect('/admin', permanent=False)    
     
 def main():
@@ -131,6 +160,8 @@ def main():
                                         ('/admin/image', ImageHandler),
                                         ('/admin/edit_feature.*', EditFeatureHandler),
                                         ('/admin/edit.*', EditHandler),
+                                        ('/admin/create_author', CreateAuthorHandler),
+                                        ('/admin/create_author_post', CreateAuthorPostHandler),
                                          ('/(.*)', MainHandler)
                                         ],
                                        debug=True)

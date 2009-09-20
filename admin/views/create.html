@@ -2,31 +2,42 @@
 
 {% block content %}
           
-        <div id="getting-started">
-          <h1>Create Blog Post</h1>
-          <br/>
-                   
-          <form method="POST" action="/admin/create_post">
-          Title: <input type="text" name="title" size="50" value="{{post.title}}"/>
-          
-          <br/>
-          <br/>
-          Image Filename: <input type="text" name="image" value="{{post.image}}" size="50"/>
-          
-          <br/>
-          <br/>
+<div id="getting-started">
+  <h1>Create Blog Post</h1>
+  <br/>                    
+           
+  <form method="POST" action="/admin/create_post">
+  
+  Author: <select name="author">
+  {% for author in authors %}
+  <option value="{{author.author_permalink}}|{{author.author_name}}" {{author.selected}}>{{author.author_name}}</option>
+  {% endfor %}
+  </select>
+  
+  <br/>
+  <br/>
+  
+  
+  Title: <input type="text" name="title" size="50" value="{{post.title}}"/>
+  
+  <br/>
+  <br/>
+  Image Filename: <input type="text" name="image" value="{{post.image}}" size="50"/>
+  
+  <br/>
+  <br/>
 
-          Markup (use new line and &lt;!-- break --&gt; to place break):
-          
-          <textarea name="ta" rows="20" cols="50">{{post.markup}}</textarea>
-          <br/>
-          <br/>
-          
-          <input type="hidden" name="key" value="{{post.key}}"/>
-          <input type="submit" value="Create/Update"/>
-          
-          </form>
-          
-        </div>
+  Markup (use new line and &lt;!-- break --&gt; to place break):
+  
+  <textarea name="ta" rows="20" cols="50">{{post.markup}}</textarea>
+  <br/>
+  <br/>
+  
+  <input type="hidden" name="key" value="{{post.key}}"/>
+  <input type="submit" value="Create/Update"/>
+  
+  </form>
+  
+</div>
       
 {% endblock %}
