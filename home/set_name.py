@@ -18,7 +18,7 @@ class SetNameHandler(webapp.RequestHandler):
     query = db.GqlQuery('SELECT * FROM Nickname WHERE user_id = :1', user.user_id())
     list = query.fetch(1)
     if len(list) == 0:
-      nickname = models.Comment(user_id=user.user_id(),
+      nickname = models.Nickname(user_id=user.user_id(),
                              nickname=self.request.get('name'),
                              url=self.request.get('url'))
     else:
@@ -30,7 +30,7 @@ class SetNameHandler(webapp.RequestHandler):
     
   def get(self):
     user = users.get_current_user() 
-      
+
     data = { 'title': 'Set Name', 'return_url': self.request.get('return_url') }
     self.response.out.write(template.render('views/set_name.html', data))
     

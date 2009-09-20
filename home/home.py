@@ -121,11 +121,17 @@ class BlogPostHandler(webapp.RequestHandler):
     query = db.GqlQuery("SELECT * FROM Comment WHERE blog_post_key = :1 and replied_to_key = '' ORDER BY created_at", str(post.key()))
     comments = query.fetch(20)
     for comment in comments:
-      comment.nickname = 'Anonymous'
-      if comment.user_id == user.user_id():
-        comment.set_name_link = '<a style="color: blue" rel="nofollow" href="/set-name?'+urllib.urlencode({'return_url':self.request.uri})+'">(set your name)</a>'
-    #comments = []
-
+      query = db.GqlQuery("SELECT * FROM Nickname WHERE user_id = :1", comment.user_id)
+      nickname = query.fetch(1)
+      
+      if len(nickname) == 0:
+        comment.nickname = 'Anonymous'
+        if comment.user_id == user.user_id():
+          comment.set_name_link = '<a style="color: blue" rel="nofollow" href="/set-name?'+urllib.urlencode({'return_url':self.request.uri})+'">(set your name)</a>'
+      else:
+        nickname = nickname[0]
+        comment.nickname = nickname.nickname
+        comment.url = nickname.url
 
     data = { 'title': post.title, 'user': user, 'comments': comments }
     if not user:
