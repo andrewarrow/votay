@@ -31,3 +31,13 @@ class Feature(db.Model):
 class Author(db.Model):
   author_name = db.StringProperty()
   author_permalink = db.StringProperty()
+  
+class Comment(db.Model):
+  blog_post_key = db.StringProperty()
+  text = db.TextProperty()
+  user_id = db.StringProperty()
+  nickname = db.StringProperty()
+  email = db.StringProperty()
+  replied_to_key = db.StringProperty()
+  created_at = db.DateTimeProperty(auto_now_add=True)
+  is_admin = db.BooleanProperty()
