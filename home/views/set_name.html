@@ -4,11 +4,14 @@
 
 <div class="excerpt">
 
+<style>
+input { font-size: 14pt; padding: 0px 2px 0px 2px; margin: 5px 2px 5px 0px; }
+</style>
 <form method="POST">
 
-Name
+<strong>Name</strong>
 <br/>
-<input type="text" name="name" size="50"/>
+<input type="text" name="name" size="50" value="{{nickname.nickname|escape}}"/>
 <br/>
 This is the name people will see associated with comments you write.
 <br/>
@@ -16,9 +19,9 @@ You can use your real name or a nickname if you'd like.
 
 <br/>
 <br/>
-URL (should begin with http://)
+<strong>URL</strong> (should begin with http://)
 <br/>
-<input type="text" name="url" size="50"/>
+<input type="text" name="url" size="50" value="{{nickname.url|escape}}"/>
 <br/>
 When your name is displayed it will be linked to this URL.
 <br/>
@@ -37,10 +40,10 @@ You can also use your linkedin, twitter or facebook profile URL.
 
 <hr/>
 
-You are logged in with your wefwef@gmail.com account.
+You are logged in with your {{email}} account.
 <br/>
 <br/>
-<a href="">Logout</a>
+<a href="{{logout_url}}">Logout</a>
 </div>
 
 {% endblock %}
