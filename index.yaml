@@ -11,6 +11,13 @@ indexes:
 # your application using appcfg.py.
 
 # Used 3 times in query history.
+- kind: BlogComment
+  properties:
+  - name: blog_post_key
+  - name: replied_to_key
+  - name: created_at
+
+# Used 3 times in query history.
 - kind: BlogPost
   properties:
   - name: author_permalink
@@ -22,7 +29,7 @@ indexes:
   - name: blog_post_key
   - name: replied_to_key
 
-# Used 46 times in query history.
+# Used 51 times in query history.
 - kind: Comment
   properties:
   - name: blog_post_key
