@@ -15,3 +15,9 @@ indexes:
   properties:
   - name: author_permalink
   - name: created_at
+
+# Used once in query history.
+- kind: Comment
+  properties:
+  - name: blog_post_key
+  - name: replied_to_key

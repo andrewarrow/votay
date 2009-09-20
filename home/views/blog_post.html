@@ -20,6 +20,7 @@
 <div id="comments_area">
   <h2>Comments</h2>
   <ul class="commentlist">
+  <!--
     <li class="comment even thread-even depth-1">
       <div>
         <div class="comment_header">
@@ -113,8 +114,20 @@
         </div>
       </div>
     </li>
-    
+  -->
   </ul>
+  
+  
+  {% if user %}
+  <form method="POST">
+    <textarea rows="8" cols="60" name="ta"></textarea>
+    <br/>
+    <input type="submit" value="Add Comment"/>
+    <input type="hidden" name="key" value="{{post.key}}"/>
+  </form>
+  {% else %}
+  <a href="{{login_url}}">Login</a> with your google account to leave a comment.
+  {% endif %}
 </div>
       
 {% endblock %}

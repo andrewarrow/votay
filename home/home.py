@@ -85,6 +85,22 @@ class MainHandler(webapp.RequestHandler):
     self.response.out.write(template.render('views/index.html', data))
 
 class BlogPostHandler(webapp.RequestHandler):
+  def post(self,year,month,day,title):
+    user = users.get_current_user()
+    nickname = user.nickname()
+    if (nickname == user.email()):
+      nickname = 'Anonymous'
+    comment = models.Comment(text=self.request.get('ta'),
+                             blog_post_key=self.request.get('key'),
+                             user_id=user.user_id(),
+                             nickname=nickname,
+                             email=user.email(),
+                             replied_to_key=self.request.get('replied_to_key'),
+                             is_admin=False)    
+    comment.put()
+                             
+    self.redirect(self.request.uri, permanent=False)
+    
   def get(self,year,month,day,title):
     if util.missingTrailingSlash(self):
       return
@@ -103,8 +119,16 @@ class BlogPostHandler(webapp.RequestHandler):
     list = query.fetch(1)
     if len(list) == 1:
       post.imageMeta = list[0]
-     
-    data = { 'title': post.title }
+
+    query = db.GqlQuery("SELECT * FROM Comment WHERE blog_post_key = :1 and replied_to_key < ''", str(post.key))
+    comments = query.fetch(20)
+
+
+    user = users.get_current_user() 
+    data = { 'title': post.title, 'user': user, 'comments': comments }
+    if not user:
+      data.update({'login_url': users.create_login_url(self.request.uri)})
+    
     data.update({'post': post})
     self.response.out.write(template.render('views/blog_post.html', data))
     
