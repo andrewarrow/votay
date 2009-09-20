@@ -26,9 +26,9 @@
         <div class="comment_header">
           <div class="comment_header_right">
             {% if comment.url %}
-            <strong><a href="{{comment.url}}">{{comment.nickname}}</a></strong> 
+            <strong><a href="{{comment.url|escape}}">{{comment.nickname|escape}}</a></strong> 
             {% else %}
-            <strong>{{comment.nickname}}</strong> 
+            <strong>{{comment.nickname|escape}}</strong> 
             {% endif %}
             {{comment.set_name_link}} - {{comment.created_at|date:"F d, Y, g:i A T"}}
           </div>

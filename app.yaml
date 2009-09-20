@@ -22,6 +22,7 @@ handlers:
 
 - url: /set-name.*
   script: home/set_name.py
+  login: required
 
 - url: /.*
   script: home/home.py
