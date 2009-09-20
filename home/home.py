@@ -120,7 +120,7 @@ class BlogPostHandler(webapp.RequestHandler):
     if len(list) == 1:
       post.imageMeta = list[0]
 
-    query = db.GqlQuery("SELECT * FROM Comment WHERE blog_post_key = :1 and replied_to_key < ''", str(post.key))
+    query = db.GqlQuery("SELECT * FROM Comment WHERE blog_post_key = :1 and replied_to_key = '' ORDER BY created_at", str(post.key()))
     comments = query.fetch(20)
 
 
