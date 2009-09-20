@@ -62,18 +62,15 @@ class AuthorHandler(webapp.RequestHandler):
     self.response.out.write(template.render('views/author.html', data))    
 
 class MainHandler(webapp.RequestHandler):
-  def get(self,path):
-    if len(path) > 0:
-      util.send404(self)
-      return
-      
-    data = { 'title': 'Open Source Blogging Software for Google App Engine' }    
+  def template_data(self, page):
+    data = { 'title': 'Open Source Blogging Software for Google App Engine',
+             'next_page': page+1}    
     
     query = db.GqlQuery('SELECT * FROM Feature ORDER BY created_at')
     features = query.fetch(3)
     
     query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at desc')
-    posts = query.fetch(20)
+    posts = query.fetch(3, 3*(page-1))
     
     for post in posts:
       query = db.GqlQuery('SELECT * FROM ImageMetaData WHERE filename = :1', post.image)
@@ -83,7 +80,24 @@ class MainHandler(webapp.RequestHandler):
     
     data.update({'features': features})
     data.update({'posts': posts})
-    self.response.out.write(template.render('views/index.html', data))
+    return data
+
+  def get(self,path):
+    if len(path) > 0:
+      util.send404(self)
+      return
+      
+    self.response.out.write(template.render('views/index.html', self.template_data(1)))
+
+class MainHandlerWithPageNumber(MainHandler):
+  def get(self,page):
+    if util.missingTrailingSlash(self):
+      return 
+    int_page = int(page);
+    if int_page < 2:
+      util.send404(self)
+      return    
+    self.response.out.write(template.render('views/index.html', self.template_data(int_page)))
 
 class BlogPostHandler(webapp.RequestHandler):
   def post(self,year,month,day,title):
@@ -146,6 +160,7 @@ def main():
                                         ('/archives/*', ArchivesHandler),
                                         ('/author/(.*)', AuthorHandler),
                                         ('/blog-image/(.*)', ImageHandler),
+                                        ('/page/(\d*)/*', MainHandlerWithPageNumber),
                                         ('/(.*)', MainHandler)
                                         ],
                                        debug=True)
