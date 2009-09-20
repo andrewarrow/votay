@@ -5,15 +5,116 @@
 <div class="excerpt">
   <div class="excerpt_header snap_nopreview"><a href="{{post.permalink}}" rel="bookmark" title="{{post.title}}">{{post.title}}</a></div>
   <div class="excerpt_subheader snap_nopreview" style="padding-bottom: 8px;">
-   	<div class="excerpt_subheader_left">
-	  	by <a rel="nofollow" href="/author/{{post.author_permalink}}/" title="Posts by {{post.author_name}}">{{post.author_name}}</a> on {{post.created_at|date:"F d, Y"}}
-	  </div>
-	</div>
-	<div class="entry">
-	  <p><img src="/blog-image/{{post.imageMeta.filename}}" width="{{post.imageMeta.width}}" height="{{post.imageMeta.height}}" /></p>
+    <div class="excerpt_subheader_left">
+      by <a rel="nofollow" href="/author/{{post.author_permalink}}/" title="Posts by {{post.author_name}}">{{post.author_name}}</a> on {{post.created_at|date:"F d, Y"}}
+    </div>
+  </div>
+  <div class="entry">
+    <p><img src="/blog-image/{{post.imageMeta.filename}}" width="{{post.imageMeta.width}}" height="{{post.imageMeta.height}}" /></p>
     {{post.markup}}
-	</div>
-	<div style="clear:both"></div>
+  </div>
+  <div style="clear:both"></div>
+</div>
+
+
+<div id="comments_area">
+  <h2>Comments</h2>
+  <ul class="commentlist">
+    <li class="comment even thread-even depth-1">
+      <div>
+        <div class="comment_header">
+          <div class="comment_header_right">
+            <strong>John Smith</strong> - September 18th, 2009 at 11:12 AM
+          </div>
+        </div>
+        <div class="comment_body">
+          <div class="comment_content">
+            <p>The name reflects the immense volume of information that exists, and the scope of Google's mission: to organize the world's information and make it universally accessible and useful.</p>
+          </div>
+          <div class="comment_reply">
+            <a rel='nofollow' class='comment-reply-link' href='' onclick=''>reply</a>
+          </div>
+        </div>
+      </div>
+      <ul class="children">
+        <li class="comment odd alt depth-2">
+          <div>
+            <div class="comment_header">
+              <div class="comment_header_right">
+                <strong>John Smith</strong> - September 18th, 2009 at 11:12 AM
+              </div>
+            </div>
+            <div class="comment_body">
+              <div class="comment_content">
+                <p>The name reflects the immense volume of information that exists, and the scope of Google's mission: to organize the world's information and make it universally accessible and useful.</p>
+              </div>
+              <div class="comment_reply">
+                <a rel='nofollow' class='comment-reply-link' href='' onclick=''>reply</a>
+              </div>
+            </div>
+          </div>
+          <ul class='children'>
+            <li class="comment even depth-3">
+              <div>
+                <div class="comment_header ">
+                  <div class="comment_header_right">
+                    <strong>John Smith</strong> - September 18th, 2009 at 11:12 AM
+                  </div>
+                </div>
+                <div class="comment_body">
+                  <div class="comment_content">
+                    <p>your comment is worthless.</p>
+                  </div>
+                  <div class="comment_reply">
+                  <a rel='nofollow' class='comment-reply-link' href='' onclick=''>reply</a>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>          
+        </li>
+        
+        <li class="comment odd alt depth-2">
+          <div>
+            <div class="comment_header">
+              <div class="comment_header_right">
+                <strong>John Smith</strong> - September 18th, 2009 at 11:12 AM
+              </div>
+            </div>
+            <div class="comment_body">
+              <div class="comment_content">
+                <p>The name reflects the immense volume of information that exists, and the scope of Google's mission: to organize the world's information and make it universally accessible and useful.</p>
+              </div>
+              <div class="comment_reply">
+                <a rel='nofollow' class='comment-reply-link' href='' onclick=''>reply</a>
+              </div>
+            </div>
+          </div>
+        </li>        
+        
+      </ul>    
+    </li>
+    
+    
+    <li class="comment even thread-even depth-1">
+      <div>
+        <div class="comment_header">
+          <div class="comment_header_right">
+            <strong>John Smith</strong> - September 18th, 2009 at 11:12 AM
+          </div>
+        </div>
+        <div class="comment_body">
+          <div class="comment_content">
+            <p>The name reflects the immense volume of information that exists, and the scope of Google's mission: to organize the world's information and make it universally accessible and useful.</p>
+          </div>
+          <div class="comment_reply">
+            <a rel='nofollow' class='comment-reply-link' href='' onclick=''>reply</a>
+          </div>
+        </div>
+      </div>
+    </li>
+    
+  </ul>
 </div>
       
 {% endblock %}

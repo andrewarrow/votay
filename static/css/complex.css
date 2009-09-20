@@ -198,7 +198,7 @@ a#announcement:hover						{ color: black !important; }
 .comment-pages-nav .alignright, 
 .comment-pages-nav .alignleft { margin: 0px; }
 
-#comments_area 				{ padding: 15px; margin: 0 0 3px 0; overflow: hidden; border: 1px solid #c4c4c4; background: white; }
+#comments_area 				{ padding: 15px; margin: 0 0 3px 0; overflow: hidden; border: 0px solid #c4c4c4; background: white; }
 #comments_area h2 			{ margin-top: 0; }
 
 .comment_header 				{ background: #f1f1f1; border-bottom: 1px solid #e5e5e5; min-height: 35px; line-height: 1.5em; height: expression(this.height < 40 ? 40: true); }
