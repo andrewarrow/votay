@@ -88,7 +88,7 @@ class MainHandler(webapp.RequestHandler):
 class BlogPostHandler(webapp.RequestHandler):
   def post(self,year,month,day,title):
     user = users.get_current_user()
-    comment = models.BlogComment(text=self.request.get('ta'),
+    comment = models.Comment(text=self.request.get('ta'),
                              blog_post_key=self.request.get('key'),
                              user_id=user.user_id(),
                              email=user.email(),
@@ -118,7 +118,7 @@ class BlogPostHandler(webapp.RequestHandler):
     if len(list) == 1:
       post.imageMeta = list[0]
 
-    query = db.GqlQuery("SELECT * FROM BlogComment WHERE blog_post_key = :1 and replied_to_key = '' ORDER BY created_at", str(post.key()))
+    query = db.GqlQuery("SELECT * FROM Comment WHERE blog_post_key = :1 and replied_to_key = '' ORDER BY created_at", str(post.key()))
     comments = query.fetch(20)
     for comment in comments:
       query = db.GqlQuery("SELECT * FROM Nickname WHERE user_id = :1", comment.user_id)

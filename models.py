@@ -32,7 +32,7 @@ class Author(db.Model):
   author_name = db.StringProperty()
   author_permalink = db.StringProperty()
   
-class BlogComment(db.Model):
+class Comment(db.Model):
   blog_post_key = db.StringProperty()
   text = db.TextProperty()
   user_id = db.StringProperty()
