@@ -87,13 +87,9 @@ class MainHandler(webapp.RequestHandler):
 class BlogPostHandler(webapp.RequestHandler):
   def post(self,year,month,day,title):
     user = users.get_current_user()
-    nickname = user.nickname()
-    if (nickname == user.email()):
-      nickname = 'Anonymous'
     comment = models.Comment(text=self.request.get('ta'),
                              blog_post_key=self.request.get('key'),
                              user_id=user.user_id(),
-                             nickname=nickname,
                              email=user.email(),
                              replied_to_key=self.request.get('replied_to_key'),
                              is_admin=False)    
@@ -104,6 +100,7 @@ class BlogPostHandler(webapp.RequestHandler):
   def get(self,year,month,day,title):
     if util.missingTrailingSlash(self):
       return
+    user = users.get_current_user() 
       
     permalink = ''.join(['/', year, '/', month, '/', day, '/', title])
     query = db.GqlQuery('SELECT * FROM BlogPost WHERE permalink = :1', permalink)
@@ -122,9 +119,13 @@ class BlogPostHandler(webapp.RequestHandler):
 
     query = db.GqlQuery("SELECT * FROM Comment WHERE blog_post_key = :1 and replied_to_key = '' ORDER BY created_at", str(post.key()))
     comments = query.fetch(20)
+    for comment in comments:
+      comment.nickname = 'Anonymous'
+      if comment.user_id == user.user_id():
+        comment.set_name_link = '<a style="color: blue" rel="nofollow" href="/set-name/">(set your name)</a>'
+    #comments = []
 
 
-    user = users.get_current_user() 
     data = { 'title': post.title, 'user': user, 'comments': comments }
     if not user:
       data.update({'login_url': users.create_login_url(self.request.uri)})

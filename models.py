@@ -36,8 +36,13 @@ class Comment(db.Model):
   blog_post_key = db.StringProperty()
   text = db.TextProperty()
   user_id = db.StringProperty()
-  nickname = db.StringProperty()
   email = db.StringProperty()
   replied_to_key = db.StringProperty()
   created_at = db.DateTimeProperty(auto_now_add=True)
   is_admin = db.BooleanProperty()
+  
+class Nickname(db.Model):
+  user_id = db.StringProperty()
+  nickname = db.StringProperty()
+  url = db.StringProperty()
+  
