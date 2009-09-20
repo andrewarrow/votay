@@ -3,8 +3,8 @@
 {% block content %}
 
 <div class="excerpt">
-  <div class="excerpt_header snap_nopreview"><a href="{{post.permalink}}" rel="bookmark" title="{{post.title}}">{{post.title}}</a></div>
-  <div class="excerpt_subheader snap_nopreview" style="padding-bottom: 8px;">
+  <div class="excerpt_header"><a href="{{post.permalink}}" rel="bookmark" title="{{post.title}}">{{post.title}}</a></div>
+  <div class="excerpt_subheader" style="padding-bottom: 8px;">
     <div class="excerpt_subheader_left">
       by <a rel="nofollow" href="/author/{{post.author_permalink}}/" title="Posts by {{post.author_name}}">{{post.author_name}}</a> on {{post.created_at|date:"F d, Y"}}
     </div>

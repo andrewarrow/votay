@@ -130,7 +130,7 @@ a#announcement:hover						{ color: black !important; }
 .post_ad 							{ text-align: center; border: 1px solid #c4c4c4; margin: 0 0 3px 0; padding: 6px; background: white; }
 .more-link 							{ float: right; display: block; padding-right: 20px; font-size: 1.1em; }
 
-.excerpt .entry img 				{ position: relative; border: 0; float: left; margin: 0 15px 15px 0 !important; max-width: 215px; max-height: 200px; width: expression(this.width > 215 ? 215: true); height: expression(this.height > 155 ? 155: true); }
+.excerpt .entry img 				{ position: relative; border: 0; float: left; margin: 0 15px 15px 0 !important; }
 .excerpt_entry_footer 				{ text-align: right; font-size: 1.1em; clear: both; }
 .excerpt_entry_footer a 			{ float: right; display: block; padding-right: 20px; }
 * html .excerpt_entry_footer a 		{ background: url(images/arrow_right2.png) no-repeat right top; }

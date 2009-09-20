@@ -10,7 +10,7 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
-# Used 19 times in query history.
+# Used 23 times in query history.
 - kind: BlogComment
   properties:
   - name: blog_post_key
@@ -29,7 +29,7 @@ indexes:
   - name: blog_post_key
   - name: replied_to_key
 
-# Used 51 times in query history.
+# Used 65 times in query history.
 - kind: Comment
   properties:
   - name: blog_post_key
