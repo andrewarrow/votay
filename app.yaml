@@ -20,7 +20,7 @@ handlers:
 - url: /robots.txt
   script: main.py
 
-- url: /set-name/*
+- url: /set-name.*
   script: home/set_name.py
 
 - url: /.*

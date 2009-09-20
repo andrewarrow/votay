@@ -5,6 +5,7 @@ from google.appengine.api import users
 from google.appengine.ext.webapp import template
 import models
 import util
+import urllib
 
 class ImageHandler(webapp.RequestHandler): 
   def get(self,filename):
@@ -122,7 +123,7 @@ class BlogPostHandler(webapp.RequestHandler):
     for comment in comments:
       comment.nickname = 'Anonymous'
       if comment.user_id == user.user_id():
-        comment.set_name_link = '<a style="color: blue" rel="nofollow" href="/set-name/">(set your name)</a>'
+        comment.set_name_link = '<a style="color: blue" rel="nofollow" href="/set-name?'+urllib.urlencode({'return_url':self.request.uri})+'">(set your name)</a>'
     #comments = []
 
 

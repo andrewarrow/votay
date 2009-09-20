@@ -22,7 +22,7 @@ indexes:
   - name: blog_post_key
   - name: replied_to_key
 
-# Used 10 times in query history.
+# Used 34 times in query history.
 - kind: Comment
   properties:
   - name: blog_post_key
