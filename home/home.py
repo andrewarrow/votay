@@ -27,6 +27,7 @@ class ImageHandler(webapp.RequestHandler):
     if extension == 'gif':
       self.response.headers['Content-Type'] = 'image/gif'
     
+    self.response.headers.add_header("Expires", "Thu, 01 Dec 2014 16:00:00 GMT")
     self.response.out.write(image.data)
 
 class PageHandler(webapp.RequestHandler):
