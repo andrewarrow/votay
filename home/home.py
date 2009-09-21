@@ -70,7 +70,9 @@ class MainHandler(webapp.RequestHandler):
     features = query.fetch(3)
     
     query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at desc')
-    posts = query.fetch(3, 3*(page-1))
+    per_page = 20
+    posts = query.fetch(per_page, per_page*(page-1))
+    next_page_count = len(query.fetch(per_page, per_page*page))
     
     for post in posts:
       query = db.GqlQuery('SELECT * FROM ImageMetaData WHERE filename = :1', post.image)
@@ -80,6 +82,7 @@ class MainHandler(webapp.RequestHandler):
     
     data.update({'features': features})
     data.update({'posts': posts})
+    data.update({'next_page_count': next_page_count})
     return data
 
   def get(self,path):
@@ -97,7 +100,13 @@ class MainHandlerWithPageNumber(MainHandler):
     if int_page < 2:
       util.send404(self)
       return    
-    self.response.out.write(template.render('views/index.html', self.template_data(int_page)))
+    data = self.template_data(int_page)
+    
+    if len(data['posts']) == 0:
+      util.send404(self)
+      return    
+    
+    self.response.out.write(template.render('views/index.html', data))
 
 class BlogPostHandler(webapp.RequestHandler):
   def post(self,year,month,day,title):
