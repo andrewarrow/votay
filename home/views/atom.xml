@@ -27,7 +27,7 @@
         </author>
 
         <content type="html">
-        {{ post.markup|escape }}
+        {{ post.preview|escape }}
         </content>
 
     </entry>
