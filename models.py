@@ -10,6 +10,13 @@ class BlogPost(db.Model):
   author_name = db.StringProperty()
   image = db.StringProperty()
   
+  def rfc3339_created_at(self):
+    return self.created_at.strftime('%Y-%m-%dT%H:%M:%SZ')
+    
+  def to_atom_xml(self):
+    import re
+    return re.sub('&(?!amp;)', '&amp;', self.markup)    
+  
 class ImageData(db.Model):
   filename = db.StringProperty()
   data = db.BlobProperty()
