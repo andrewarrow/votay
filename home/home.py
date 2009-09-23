@@ -69,22 +69,10 @@ class MainHandler(webapp.RequestHandler):
              'next_page': page+1}    
     
     query = db.GqlQuery('SELECT * FROM Feature ORDER BY created_at')
-    features = query.fetch(3)
-    
-    query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at desc')
-    per_page = 20
-    posts = query.fetch(per_page, per_page*(page-1))
-    next_page_count = len(query.fetch(per_page, per_page*page))
-    
-    for post in posts:
-      query = db.GqlQuery('SELECT * FROM ImageMetaData WHERE filename = :1', post.image)
-      list = query.fetch(1)
-      if len(list) == 1:
-        post.imageMeta = list[0]
-    
+    features = query.fetch(3) 
+
+    data.update(util.getRecentBlogPosts(page))        
     data.update({'features': features})
-    data.update({'posts': posts})
-    data.update({'next_page_count': next_page_count})
     return data
 
   def get(self,path):

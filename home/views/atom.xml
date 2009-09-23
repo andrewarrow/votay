@@ -3,15 +3,13 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title type="text">Open Source Blogging Software for Google App Engine - Votay</title>
     <subtitle type="html">Open Source Blogging Software for Google App Engine - Votay</subtitle>
-    <updated>{{ most_recent.rfc3339_created_at }}</updated>
+    <updated>{{ most_recent }}</updated>
     <id>tag:votay.com,2009:3</id>
     <link rel="alternate" type="text/html" hreflang="en" href="http://www.votay.com/" />
     <link rel="self" type="application/atom+xml" href="http://www.votay.com/atom.xml" />
     <rights>Copyright (c) 2009, votay.com</rights>
 
-    <generator uri="http://www.votay.com/" version="0.1">
-        Votay
-    </generator>
+    <generator uri="http://www.votay.com/" version="0.1">Votay</generator>
 
     {% for post in posts %}
     <entry>
@@ -25,12 +23,12 @@
 
         <author>
             <name>{{ post.author_name }}</name>
-            <uri>http://www.votay.com/author/{{ blog.author_permalink }}</uri>
+            <uri>http://www.votay.com/author/{{ post.author_permalink }}/</uri>
         </author>
 
         <content type="xhtml" xml:lang="en" xml:base="http://www.votay.com/">
             <div xmlns="http://www.w3.org/1999/xhtml">
-                {{ article.to_atom_xml }}
+                {{ post.to_atom_xml }}
             </div>
         </content>
     </entry>

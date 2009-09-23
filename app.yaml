@@ -26,6 +26,9 @@ handlers:
   script: home/set_name.py
   login: required
 
+- url: /atom.xml
+  script: home/atom.py
+
 - url: /.*
   script: home/home.py
   
