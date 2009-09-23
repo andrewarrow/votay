@@ -26,11 +26,10 @@
             <uri>http://www.votay.com/author/{{ post.author_permalink }}/</uri>
         </author>
 
-        <content type="xhtml" xml:lang="en" xml:base="http://www.votay.com/">
-            <div xmlns="http://www.w3.org/1999/xhtml">
-                {{ post.to_atom_xml }}
-            </div>
+        <content type="html">
+        {{ post.markup|escape }}
         </content>
+
     </entry>
     {% endfor %}
 
