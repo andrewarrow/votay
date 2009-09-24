@@ -29,6 +29,9 @@ handlers:
 - url: /atom.xml
   script: home/atom.py
 
+- url: /sitemap.xml
+  script: home/sitemap.py
+
 - url: /.*
   script: home/home.py
   
