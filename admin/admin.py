@@ -126,7 +126,7 @@ class CreatePostHandler(webapp.RequestHandler):
       post.permalink = '/' + str(post.created_at.year) + '/' + month + '/' + day + '/' + re.sub('[^a-z0-9]', '-', post.title.lower()) + '/'
       post.preview = self.extract_preview(post.markup)
     post.put()
-    self.redirect('/admin', permanent=False)
+    self.redirect(post.permalink, permanent=False)
     
 class CreateFeaturePostHandler(webapp.RequestHandler):
   def post(self):
