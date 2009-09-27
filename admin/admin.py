@@ -66,28 +66,6 @@ class CreateAuthorHandler(webapp.RequestHandler):
   def get(self):
     data = { 'title': 'Admin Create Author' }
     self.response.out.write(template.render('views/create_author.html', data))
-
-class ImageHandler(webapp.RequestHandler):
-  def get(self):
-    data = { 'title': 'Admin Image' }
-    self.response.out.write(template.render('views/image.html', data))
-
-class ImagePostHandler(webapp.RequestHandler):
-  def post(self):
-    lines = str(self.request).split("\n")
-    for line in lines:
-      if line.startswith('Content-Disposition'):
-        filename = line.split(';')[2][11:-2]
-        
-    image = images.Image(self.request.get("img"))
-    image_data = models.ImageData(data=self.request.get("img"),
-                                  filename=filename)
-    image_meta_data = models.ImageMetaData(filename=filename,
-                                  width=image.width,
-                                  height=image.height)
-    image_data.put()
-    image_meta_data.put()
-    self.redirect('/admin', permanent=False)
     
 class CreatePostHandler(webapp.RequestHandler):
   def extract_preview(self,markup):
@@ -156,8 +134,6 @@ def main():
                                         ('/admin/create', CreateHandler),
                                         ('/admin/create_feature', CreateFeatureHandler),
                                         ('/admin/create_feature_post', CreateFeaturePostHandler),
-                                        ('/admin/image_post', ImagePostHandler),
-                                        ('/admin/image', ImageHandler),
                                         ('/admin/edit_feature.*', EditFeatureHandler),
                                         ('/admin/edit.*', EditHandler),
                                         ('/admin/create_author', CreateAuthorHandler),

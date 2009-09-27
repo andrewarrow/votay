@@ -21,13 +21,21 @@ class ImageHandler(webapp.RequestHandler):
     
     page = 1
     query = db.GqlQuery('SELECT * FROM ImageMetaData ORDER BY created_at desc')
-    per_page = 20
+    per_page = 10
     images = query.fetch(per_page, per_page*(page-1))
     next_page_count = len(query.fetch(per_page, per_page*page))
     
     for image in images:
-      image.thumb_width = image.width / 8
-      image.thumb_height = image.height / 8
+      image.thumb_width = image.width
+      image.thumb_height = image.height
+      
+      while image.thumb_width > 75:
+        image.thumb_width = image.thumb_width / 2
+        image.thumb_height = image.thumb_height / 2
+
+      while image.thumb_height > 75:     
+        image.thumb_height = image.thumb_height / 2
+        image.thumb_width = image.thumb_width / 2
 
     data.update({'images': images})
     self.response.out.write(template.render('views/image.html', data))
@@ -39,6 +47,8 @@ class ImagePostHandler(webapp.RequestHandler):
       if line.startswith('Content-Disposition'):
         filename = line.split(';')[2][11:-2]
         
+        
+    filename = re.sub('[^a-z0-9\.]', '_', filename.lower())        
     image = images.Image(self.request.get("img"))
     image_data = models.ImageData(data=self.request.get("img"),
                                   filename=filename)
