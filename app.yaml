@@ -15,6 +15,10 @@ handlers:
 - url: /javascript
   static_dir: static/javascript
 
+- url: /admin/images.*
+  script: admin/images.py
+  login: admin
+
 - url: /admin.*
   script: admin/admin.py
   login: admin

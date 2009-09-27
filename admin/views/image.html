@@ -3,7 +3,27 @@
 {% block content %}
 
         <div id="getting-started">
-          <h1>Upload Image</h1>
+          <h1>Image Manager</h1>
+          <br/>
+          
+          <table>
+          <tr>
+          <th>Thumbnail</th>
+          <th>Filename</th>
+          <th>Dimensions</th>
+          <th>Created</th>
+          </tr>            
+          {% for image in images %}
+          <tr>
+          <td><a href="/blog-image/{{image.filename}}" target="_new"><img src="/blog-image/{{image.filename}}" width="{{image.thumb_width}}" height="{{image.thumb_height}}" /></a></td>
+          <td>{{image.filename}}</td>
+          <td>{{image.width}}x{{image.height}}</td>
+          <td>{{image.created_at|date:"Y-m-d H:i:s"}}</td>
+          </tr>            
+          {% endfor %}
+          <table>
+
+          <br/>
           <br/>
                    
           <form method="POST" enctype="multipart/form-data" action="/admin/image_post">

@@ -20,6 +20,8 @@ a:hover {
   text-decoration: none;
 }
 
+table td { padding: 0 10px 0 10px; }
+
 
 #page {
   background-color: #f0f0f0;
@@ -35,7 +37,7 @@ a:hover {
   border: 3px solid #aaa;
   border-top: none;
   padding: 25px;
-  width: 500px;
+  width: 600px;
 }
 
 #sidebar {
