@@ -1,2 +1,3 @@
 *.pyc
+static/highlight
 .DS_Store

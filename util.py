@@ -18,7 +18,7 @@ def send404(handler):
 def getRecentBlogPosts(page):
   data = {}
   query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at desc')
-  per_page = 10
+  per_page = 5
   posts = query.fetch(per_page, per_page*(page-1))
   next_page_count = len(query.fetch(per_page, per_page*page))
   

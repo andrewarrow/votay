@@ -16,6 +16,7 @@ h1, h2, h3 				{ margin: 0; padding: 0; }
 h2 						{ margin: 1.5em 0 1em 0; }	
 h3 						{ margin: 1.5em 0 .5em 0; }
 img						{ border: 0; }
+pre           { background-color: rgb(255,255,222); padding: 3px 5px 3px 5px;  overflow:auto; }
 
 .center							{ text-align: center; }
 .aligncenter					{ text-align: center; }
