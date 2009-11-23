@@ -21,7 +21,7 @@ class ImageHandler(webapp.RequestHandler):
     
     page = 1
     query = db.GqlQuery('SELECT * FROM ImageMetaData ORDER BY created_at desc')
-    per_page = 10
+    per_page = 5
     images = query.fetch(per_page, per_page*(page-1))
     next_page_count = len(query.fetch(per_page, per_page*page))
     
@@ -48,20 +48,22 @@ class ImagePostHandler(webapp.RequestHandler):
         filename = line.split(';')[2][11:-2]
         
         
-    filename = re.sub('[^a-z0-9\.]', '_', filename.lower())        
-    image = images.Image(self.request.get("img"))
-    image_data = models.ImageData(data=self.request.get("img"),
-                                  filename=filename)
-    image_meta_data = models.ImageMetaData(filename=filename,
-                                  width=image.width,
-                                  height=image.height)
-    image_data.put()
-    image_meta_data.put()
-    self.redirect('/admin', permanent=False)
+    filename = re.sub('[^a-z0-9\.]', '_', filename.lower())
     
+    query = db.GqlQuery('SELECT * FROM ImageData WHERE filename = :1', filename)
+    list = query.fetch(1)
 
-    
- 
+    if len(list) == 0:    
+      image = images.Image(self.request.get("img"))
+      image_data = models.ImageData(data=self.request.get("img"),
+                                    filename=filename)
+      image_meta_data = models.ImageMetaData(filename=filename,
+                                    width=image.width,
+                                    height=image.height)
+      image_data.put()
+      image_meta_data.put()
+      
+    self.redirect('/admin', permanent=False)
     
 def main():
   application = webapp.WSGIApplication([('/admin/image_post', ImagePostHandler),
