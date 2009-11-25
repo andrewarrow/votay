@@ -143,7 +143,7 @@ class BlogPostHandler(webapp.RequestHandler):
       
       if len(nickname) == 0:
         comment.nickname = 'Anonymous'
-        if comment.user_id == user.user_id():
+        if user and comment.user_id == user.user_id():
           comment.set_name_link = '<a style="color: blue" rel="nofollow" href="/set-name?'+urllib.urlencode({'return_url':self.request.uri})+'">(set your name)</a>'
       else:
         nickname = nickname[0]
