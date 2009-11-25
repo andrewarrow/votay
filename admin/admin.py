@@ -3,6 +3,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext import db
 from google.appengine.api import users
 from google.appengine.api import images
+from google.appengine.api import memcache
 from google.appengine.ext.webapp import template
 import os
 import sys
@@ -120,6 +121,7 @@ class CreateFeaturePostHandler(webapp.RequestHandler):
                  image=self.request.get('image'),
                  permalink=self.request.get('permalink'))
     feature.put()
+    memcache.delete('features')
     self.redirect('/admin', permanent=False)
     
 class CreateAuthorPostHandler(webapp.RequestHandler):
