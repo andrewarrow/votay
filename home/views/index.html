@@ -27,7 +27,7 @@
 	  </div>
 	</div>
 	<div class="entry">
-	  <p><a rel="nofollow" href="{{post.permalink}}"><img src="/blog-image/{{post.imageMeta.filename}}" width="{{post.imageMeta.width}}" height="{{post.imageMeta.height}}" /></a></p>
+	  <p><a rel="nofollow" href="{{post.permalink}}"><img src="/blog-image/{{post.image}}" width="{{post.width}}" height="{{post.height}}" /></a></p>
     {{post.preview}}
 	</div>
 	<div class="excerpt_entry_footer"><a href="{{post.permalink}}" rel="nofollow">Read More</a></div>
@@ -70,14 +70,13 @@
 </div>
 {% endif %}
 
-{% ifequal next_page_count 0%}
-{% else %}
+{% if posts %}
 <div class="navigation">
   <br/><br/>
   <div class="center"><a href="/page/{{next_page}}/">Older Entries</a></div>
   <div class="alignleft"></div>
   <div style="clear:both"></div>
 </div>
-{% endifequal %}
+{% endif %}
 
 {% endblock %}

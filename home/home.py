@@ -121,20 +121,13 @@ class BlogPostHandler(webapp.RequestHandler):
     user = users.get_current_user() 
       
     permalink = ''.join(['/', year, '/', month, '/', day, '/', title])
-    query = db.GqlQuery('SELECT * FROM BlogPost WHERE permalink = :1', permalink)
-    list = query.fetch(1)
-
-    if len(list) == 0:
+    
+    post = util.loadBlogPost(permalink)
+    
+    if post is None:    
       util.send404(self)
       return
-      
-    post = list[0]
-     
-    query = db.GqlQuery('SELECT * FROM ImageMetaData WHERE filename = :1', post.image)
-    list = query.fetch(1)
-    if len(list) == 1:
-      post.imageMeta = list[0]
-
+ 
     query = db.GqlQuery("SELECT * FROM Comment WHERE blog_post_key = :1 and replied_to_key = '' ORDER BY created_at", str(post.key()))
     comments = query.fetch(20)
     for comment in comments:

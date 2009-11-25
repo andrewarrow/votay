@@ -79,12 +79,21 @@ class CreatePostHandler(webapp.RequestHandler):
     return ''.join(buff)
     
   def post(self):
+    query = db.GqlQuery('SELECT * FROM ImageMetaData WHERE filename = :1', self.request.get('image'))
+    list = query.fetch(1)
+    if len(list) == 0:
+      self.redirect('/admin', permanent=False)
+      return
+    imageMeta = list[0]
+  
     author_info = self.request.get('author').split('|')
         
     if self.request.get('key'):
       post = db.get(db.Key(self.request.get('key'))) 
       post.title=self.request.get('title')
       post.image=self.request.get('image')
+      post.width = imageMeta.width
+      post.height = imageMeta.height
       post.markup=self.request.get('ta')
       post.preview = self.extract_preview(post.markup)
       post.author_permalink=author_info[0]
@@ -93,6 +102,8 @@ class CreatePostHandler(webapp.RequestHandler):
       post = models.BlogPost(title=self.request.get('title'),
                  markup=self.request.get('ta'),
                  image=self.request.get('image'),
+                 width=imageMeta.width,
+                 height=imageMeta.height,
                  author_permalink=author_info[0],
                  author_name=author_info[1])
       month = str(post.created_at.month)
