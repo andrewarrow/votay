@@ -18,17 +18,18 @@ def send404(handler):
   handler.response.out.write(template.render(APP_ROOT_DIR + '/home/views/404.html', {}))
   
 def getRecentBlogPosts(page):
-  #data = memcache.get('page_'+str(page))
   data = None
+  if page == 1:
+    data = memcache.get('p1')
+
   if data is None:
     query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at desc')
     per_page = 5
     posts = query.fetch(per_page, per_page*(page-1))
   
-    for post in posts:
-      addImageDataToPost(post)
     data = {'posts': posts}
-    memcache.add('page_'+str(page), data)
+    if page == 1: 
+      memcache.add('p1', data, 3600)
 
   return data
 
@@ -43,10 +44,9 @@ def addImageDataToPost(post):
     post.put()
 
 def loadBlogPost(permalink):
-  #post = memcache.get(permalink)
-  post = None
+  post = memcache.get(permalink)
   
-  if post is None:    
+  if post is None:
     query = db.GqlQuery('SELECT * FROM BlogPost WHERE permalink = :1', permalink)
     list = query.fetch(1)
 
@@ -54,7 +54,5 @@ def loadBlogPost(permalink):
       return None
     
     post = list[0]
-   
-    addImageDataToPost(post)
-    memcache.add(permalink, post)
+    memcache.add(permalink, post, 3600)
   return post
