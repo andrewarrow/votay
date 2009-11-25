@@ -1,5 +1,6 @@
 from google.appengine.ext.webapp import template
 from google.appengine.ext import db
+from google.appengine.api import memcache
 import os
 
 APP_ROOT_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -16,17 +17,19 @@ def send404(handler):
   handler.response.out.write(template.render(APP_ROOT_DIR + '/home/views/404.html', {}))
   
 def getRecentBlogPosts(page):
-  data = {}
-  query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at desc')
-  per_page = 5
-  posts = query.fetch(per_page, per_page*(page-1))
-  next_page_count = len(query.fetch(per_page, per_page*page))
+  data = memcache.get('page_'+str(page))
+  if data is None:
+    query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at desc')
+    per_page = 5
+    posts = query.fetch(per_page, per_page*(page-1))
+    next_page_count = len(query.fetch(per_page, per_page*page))
   
-  for post in posts:
-    query = db.GqlQuery('SELECT * FROM ImageMetaData WHERE filename = :1', post.image)
-    list = query.fetch(1)
-    if len(list) == 1:
-      post.imageMeta = list[0]
+    for post in posts:
+      query = db.GqlQuery('SELECT * FROM ImageMetaData WHERE filename = :1', post.image)
+      list = query.fetch(1)
+      if len(list) == 1:
+        post.imageMeta = list[0]
+    data = {'posts': posts, 'next_page_count': next_page_count}
+    memcache.add('page_'+str(page), data)
 
-  return {'posts': posts,
-          'next_page_count': next_page_count}
+  return data

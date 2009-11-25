@@ -3,6 +3,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext import db
 from google.appengine.api import users
 from google.appengine.ext.webapp import template
+from google.appengine.api import memcache
 import models
 import util
 import urllib
@@ -67,10 +68,13 @@ class MainHandler(webapp.RequestHandler):
   def template_data(self, page):
     data = { 'title': 'Open Source Blogging Software for Google App Engine',
              'next_page': page+1}    
-    
-    query = db.GqlQuery('SELECT * FROM Feature ORDER BY created_at')
-    features = query.fetch(3) 
-
+        
+    features = memcache.get('features')
+    if features is None:
+      query = db.GqlQuery('SELECT * FROM Feature ORDER BY created_at')
+      features = query.fetch(3)
+      memcache.add('features', features)
+ 
     data.update(util.getRecentBlogPosts(page))        
     data.update({'features': features})
     return data
