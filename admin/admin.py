@@ -110,7 +110,7 @@ class CreatePostHandler(webapp.RequestHandler):
       created_at = datetime.now()
       datestr = self.request.get('created_at')
       if datestr:
-        created_at = datetime(2002, 3, 11)
+        created_at = datetime(int(datestr[0:4]), int(datestr[5:7]), int(datestr[8:10]))
         
       year = str(created_at.year)
       month = str(created_at.month)
