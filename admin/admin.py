@@ -18,13 +18,7 @@ class MainHandler(webapp.RequestHandler):
 
     data = { 'title': 'Admin',
              'email': user.email() }
-    
-    nickname = None
-    query = db.GqlQuery('SELECT * FROM Nickname WHERE user_id = :1', user.user_id())
-    list = query.fetch(1)
-    if len(list) > 0:
-      nickname = list[0]
-    
+        
     query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at desc')
     posts = query.fetch(20)    
     data.update({'posts': posts})
@@ -33,10 +27,10 @@ class MainHandler(webapp.RequestHandler):
     features = query.fetch(20)    
     data.update({'features': features})
     
-    if nickname is None or access_level == 1:    
-      self.response.out.write(template.render('views/index.html', data))
-    else:
+    if users.is_current_user_admin():
       self.response.out.write(template.render('views/super_user.html', data))
+    else:
+      self.response.out.write(template.render('views/index.html', data))
 
 class EditHandler(webapp.RequestHandler):
   def get(self):
@@ -114,6 +108,11 @@ class CreatePostHandler(webapp.RequestHandler):
       post.author_name=author_info[1]
     else:
       created_at = datetime.now()
+      datestr = self.request.get('created_at')
+      if datestr:
+        created_at = datetime(2002, 3, 11)
+        
+      year = str(created_at.year)
       month = str(created_at.month)
       if len(month) == 1:
         month = '0' + month
@@ -121,7 +120,7 @@ class CreatePostHandler(webapp.RequestHandler):
       if len(day) == 1:
         day = '0' + day
       
-      permalink = '/' + str(created_at.year) + '/' + month + '/' + day + '/' + re.sub('[^a-z0-9]', '-', self.request.get('title').lower()) + '/'
+      permalink = '/' + year + '/' + month + '/' + day + '/' + re.sub('[^a-z0-9]', '-', self.request.get('title').lower()) + '/'
       
       if util.loadBlogPost(permalink) is not None:
         self.redirect('/admin', permanent=False)
@@ -133,10 +132,11 @@ class CreatePostHandler(webapp.RequestHandler):
                  image=self.request.get('image'),
                  width=imageMeta.width,
                  height=imageMeta.height,
+                 created_at=created_at,
                  permalink=permalink,
                  author_permalink=author_info[0],
                  author_name=author_info[1])
-        
+
     post.put()
     memcache.delete(post.permalink)
     self.redirect(post.permalink, permanent=False)

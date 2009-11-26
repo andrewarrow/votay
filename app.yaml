@@ -17,11 +17,11 @@ handlers:
 
 - url: /admin/image.*
   script: admin/images.py
-  login: required
+  login: admin
 
 - url: /admin.*
   script: admin/admin.py
-  login: required
+  login: admin
 
 - url: /robots.txt
   script: main.py
