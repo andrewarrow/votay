@@ -15,26 +15,34 @@ File.makedirs('backup_files/posts')
 File.makedirs('backup_files/images')
 
 domain = 'votay.com'  # change to your domain
+page = 1
 
-url = URI.parse("http://www.#{domain}")
-req = Net::HTTP::Get.new('/export?p=1')
-res = Net::HTTP.start(url.host, url.port) {|http|
-  http.request(req)
-}
-puts res.class == Net::HTTPOK
+while true
+  url = URI.parse("http://www.#{domain}")
+  req = Net::HTTP::Get.new("/export?p=#{page}")
+  res = Net::HTTP.start(url.host, url.port) do |http|
+    http.request(req)
+  end
 
-f = File.open("backup_files/posts/p1.txt", "w")
-f << res.body
-f.close
-
-image = res.body.split("\n").first
-pp image
-
-req = Net::HTTP::Get.new("/blog-image/#{image}")
-res = Net::HTTP.start(url.host, url.port) {|http|
-  http.request(req)
-}
-
-f = File.open("backup_files/images/#{image}", "w")
-f << res.body
-f.close
+  break if res.class != Net::HTTPOK
+  
+  f = File.open("backup_files/posts/p#{page}.txt", "w")
+  f << res.body
+  f.close
+  
+  image = res.body.split("\n").first
+  pp image
+  
+  req = Net::HTTP::Get.new("/blog-image/#{image}")
+  res = Net::HTTP.start(url.host, url.port) do |http|
+    http.request(req)
+  end
+  
+  f = File.open("backup_files/images/#{image}", "w")
+  f << res.body
+  f.close
+  
+  puts 'sleeping'
+  sleep(5)
+  page += 1
+end
