@@ -1,3 +1,4 @@
 *.pyc
 static/highlight
 .DS_Store
+backup_files
