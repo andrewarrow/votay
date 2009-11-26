@@ -5,6 +5,8 @@ from google.appengine.api import users
 from google.appengine.api import images
 from google.appengine.api import memcache
 from google.appengine.ext.webapp import template
+from datetime import datetime
+import util
 import os
 import sys
 import models
@@ -98,23 +100,31 @@ class CreatePostHandler(webapp.RequestHandler):
       post.preview = self.extract_preview(post.markup)
       post.author_permalink=author_info[0]
       post.author_name=author_info[1]
-    else:  
+    else:
+      created_at = datetime.now()
+      month = str(created_at.month)
+      if len(month) == 1:
+        month = '0' + month
+      day = str(created_at.day)
+      if len(day) == 1:
+        day = '0' + day
+      
+      permalink = '/' + str(created_at.year) + '/' + month + '/' + day + '/' + re.sub('[^a-z0-9]', '-', self.request.get('title').lower()) + '/'
+      
+      if util.loadBlogPost(permalink) is not None:
+        self.redirect('/admin', permanent=False)
+        return
+      
       post = models.BlogPost(title=self.request.get('title'),
                  markup=self.request.get('ta'),
+                 preview=self.extract_preview(self.request.get('ta')),
                  image=self.request.get('image'),
                  width=imageMeta.width,
                  height=imageMeta.height,
+                 permalink=permalink,
                  author_permalink=author_info[0],
                  author_name=author_info[1])
-      month = str(post.created_at.month)
-      if len(month) == 1:
-        month = '0' + month
-      day = str(post.created_at.day)
-      if len(day) == 1:
-        day = '0' + day
         
-      post.permalink = '/' + str(post.created_at.year) + '/' + month + '/' + day + '/' + re.sub('[^a-z0-9]', '-', post.title.lower()) + '/'
-      post.preview = self.extract_preview(post.markup)
     post.put()
     memcache.delete(post.permalink)
     self.redirect(post.permalink, permanent=False)
