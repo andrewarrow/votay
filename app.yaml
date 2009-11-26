@@ -36,6 +36,9 @@ handlers:
 - url: /sitemap.xml
   script: home/sitemap.py
 
+- url: /export
+  script: home/sitemap.py
+
 - url: /.*
   script: home/home.py
   
