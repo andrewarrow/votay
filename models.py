@@ -54,4 +54,5 @@ class Nickname(db.Model):
   user_id = db.StringProperty()
   nickname = db.StringProperty()
   url = db.StringProperty()
+  access_level = db.IntegerProperty()
   

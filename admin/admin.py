@@ -14,7 +14,16 @@ import re
 
 class MainHandler(webapp.RequestHandler):
   def get(self,path):
-    data = { 'title': 'Admin' }
+    user = users.get_current_user() 
+
+    data = { 'title': 'Admin',
+             'email': user.email() }
+    
+    nickname = None
+    query = db.GqlQuery('SELECT * FROM Nickname WHERE user_id = :1', user.user_id())
+    list = query.fetch(1)
+    if len(list) > 0:
+      nickname = list[0]
     
     query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at desc')
     posts = query.fetch(20)    
@@ -24,7 +33,10 @@ class MainHandler(webapp.RequestHandler):
     features = query.fetch(20)    
     data.update({'features': features})
     
-    self.response.out.write(template.render('views/index.html', data))
+    if nickname is None or access_level == 1:    
+      self.response.out.write(template.render('views/index.html', data))
+    else:
+      self.response.out.write(template.render('views/super_user.html', data))
 
 class EditHandler(webapp.RequestHandler):
   def get(self):
