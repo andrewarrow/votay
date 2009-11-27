@@ -11,8 +11,9 @@ require 'uri'
 require 'pp'
 require 'ftools'
 
-File.makedirs('backup_files/posts')
-File.makedirs('backup_files/images')
+ran = rand(9999999999)
+File.makedirs("backup_files#{ran}/posts")
+File.makedirs("backup_files#{ran}/images")
 
 domain = 'votay.com'  # change to your domain
 page = 1
@@ -25,12 +26,15 @@ while true
   end
 
   break if res.class != Net::HTTPOK
+
+  lines = res.body.split("\n")
+  permalink = lines[2].gsub(/\//,'_')
   
-  f = File.open("backup_files/posts/p#{page}.txt", "w")
+  f = File.open("backup_files#{ran}/posts/#{permalink}.txt", "w")
   f << res.body
   f.close
   
-  image = res.body.split("\n").first
+  image = lines[0]
   pp image
   
   req = Net::HTTP::Get.new("/blog-image/#{image}")
@@ -38,7 +42,7 @@ while true
     http.request(req)
   end
   
-  f = File.open("backup_files/images/#{image}", "w")
+  f = File.open("backup_files#{ran}/images/#{image}", "w")
   f << res.body
   f.close
   
