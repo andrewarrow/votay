@@ -27,18 +27,6 @@ indexes:
   - name: created_at
     direction: desc
 
-- kind: BlogPost
-  properties:
-  - name: published2
-  - name: created_at
-    direction: desc
-
-- kind: BlogPost
-  properties:
-  - name: unpublished
-  - name: created_at
-    direction: desc
-
 - kind: Comment
   properties:
   - name: blog_post_key
