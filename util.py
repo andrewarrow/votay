@@ -33,16 +33,6 @@ def getRecentBlogPosts(page):
 
   return data
 
-def addImageDataToPost(post):
-  if post.width:
-    return
-  query = db.GqlQuery('SELECT * FROM ImageMetaData WHERE filename = :1', post.image)
-  list = query.fetch(1)
-  if len(list) == 1:
-    post.width = list[0].width
-    post.height = list[0].height
-    post.put()
-
 def loadBlogPost(permalink):
   post = memcache.get(permalink)
   

@@ -21,10 +21,21 @@
 <a href="/admin/create">Create Post</a>
 <br/>
 <br/>
+<table>
 {% for post in posts %}
-<a href="/admin/edit?key={{post.key}}">edit</a> {{post.title}}
-<br/>
+<tr>
+<td><a href="/admin/edit?key={{post.key}}">edit</a></td>
+<td>{{post.title}}</td>
+<td>
+{% if post.published %}
+Published
+{% else %}
+<a href="{{post.permalink}}">Preview</a>
+{% endif %}
+</td>
+</tr>
 {% endfor %}
+</table>
 
 </div>
 

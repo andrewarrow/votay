@@ -37,6 +37,15 @@
   <br/>
   <br/>
   
+  {% if post.key %}
+  Published: <select name="published">
+  <option value="1" {{published_yes}}>Yes, live</option>
+  <option value="0" {{published_no}}>No, preview only</option>
+  </select>
+  <br/>
+  <br/>
+  {% endif %}
+  
   <input type="hidden" name="key" value="{{post.key}}"/>
   <input type="submit" value="Create/Update"/>
   

@@ -11,6 +11,7 @@ class BlogPost(db.Model):
   image = db.StringProperty()
   width = db.IntegerProperty()
   height = db.IntegerProperty()
+  published = db.BooleanProperty()
   
   def rfc3339_created_at(self):
     return self.created_at.strftime('%Y-%m-%dT%H:%M:%SZ')

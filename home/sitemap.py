@@ -19,6 +19,22 @@ class SiteMapHandler(webapp.RequestHandler):
     self.response.headers['Content-Type'] = 'text/xml'
     self.response.out.write(template.render('views/sitemap.xml', data))
 
+class MigrationHandler(webapp.RequestHandler):
+  def get(self):
+
+    page = int(self.request.get('p'))
+    query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at desc')
+    posts = query.fetch(1, page-1)
+    
+    if len(posts) == 0:
+      util.send404(self)
+      return    
+    
+    post = posts[0]
+    post.published = True
+    post.put()
+    self.response.out.write('done\n')
+
 class ExportHandler(webapp.RequestHandler):
   def get(self):
 
@@ -45,6 +61,7 @@ class ExportHandler(webapp.RequestHandler):
 def main():
   application = webapp.WSGIApplication([('/sitemap.xml', SiteMapHandler),
                                         ('/export', ExportHandler),
+                                        ('/migration', MigrationHandler),
                                         ('/(.*)', MainHandler)
                                         ],
                                        debug=True)

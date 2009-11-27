@@ -45,6 +45,11 @@ class EditHandler(webapp.RequestHandler):
       if author.author_permalink == post.author_permalink:
         author.selected = 'selected="true"'
     data.update({'authors': authors})
+
+    if post.published:
+      data.update({'published_yes': 'selected="true"'})
+    else:
+      data.update({'published_no': 'selected="true"'})
     
     self.response.out.write(template.render('views/create.html', data))
 
@@ -106,6 +111,7 @@ class CreatePostHandler(webapp.RequestHandler):
       post.preview = self.extract_preview(post.markup)
       post.author_permalink=author_info[0]
       post.author_name=author_info[1]
+      post.published = self.request.get('published') == '1'
     else:
       created_at = datetime.now()
       datestr = self.request.get('created_at')
@@ -134,11 +140,13 @@ class CreatePostHandler(webapp.RequestHandler):
                  height=imageMeta.height,
                  created_at=created_at,
                  permalink=permalink,
+                 published=False,
                  author_permalink=author_info[0],
                  author_name=author_info[1])
 
     post.put()
     memcache.delete(post.permalink)
+    memcache.delete('p1')
     self.redirect(post.permalink, permanent=False)
     
 class CreateFeaturePostHandler(webapp.RequestHandler):
