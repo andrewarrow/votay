@@ -52,7 +52,7 @@ class AuthorHandler(webapp.RequestHandler):
       return
     data = { 'title':'Andrew Arrow' }
 
-    query = db.GqlQuery('SELECT * FROM BlogPost WHERE author_permalink = :1 ORDER BY created_at', permalink[0:-1])
+    query = db.GqlQuery('SELECT * FROM BlogPost WHERE author_permalink = :1 ORDER BY created_at desc', permalink[0:-1])
     posts = query.fetch(5)        
     data.update({'posts': posts})    
     self.response.out.write(template.render('views/author.html', data))    
