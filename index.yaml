@@ -23,6 +23,12 @@ indexes:
 
 - kind: BlogPost
   properties:
+  - name: author_permalink
+  - name: published
+  - name: created_at
+
+- kind: BlogPost
+  properties:
   - name: published
   - name: created_at
     direction: desc

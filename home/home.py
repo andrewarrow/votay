@@ -50,7 +50,11 @@ class AuthorHandler(webapp.RequestHandler):
   def get(self,permalink):      
     if util.missingTrailingSlash(self):
       return
-    data = { 'title':'Andrew Arrow' }
+    
+    title = 'Andrew Arrow'
+    if permalink[0:-1] == 'guest-author':
+      title = 'Guest Author'
+    data = { 'title': title }
 
     query = db.GqlQuery('SELECT * FROM BlogPost WHERE author_permalink = :1 ORDER BY created_at', permalink[0:-1])
     posts = query.fetch(5)        
