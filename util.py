@@ -23,7 +23,7 @@ def getRecentBlogPosts(page):
     data = memcache.get('p1')
 
   if data is None:
-    query = db.GqlQuery('SELECT * FROM BlogPost WHERE published = True ORDER BY created_at desc')
+    query = db.GqlQuery('SELECT * FROM BlogPost ORDER BY created_at desc')
     per_page = 5
     posts = query.fetch(per_page, per_page*(page-1))
   

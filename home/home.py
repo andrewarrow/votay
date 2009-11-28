@@ -50,17 +50,10 @@ class AuthorHandler(webapp.RequestHandler):
   def get(self,permalink):      
     if util.missingTrailingSlash(self):
       return
-    data = { 'title':'Andrew Arrow' }    
-        
+    data = { 'title':'Andrew Arrow' }
+
     query = db.GqlQuery('SELECT * FROM BlogPost WHERE author_permalink = :1 ORDER BY created_at', permalink[0:-1])
-    posts = query.fetch(20)
-    
-    for post in posts:
-      query = db.GqlQuery('SELECT * FROM ImageMetaData WHERE filename = :1', post.image)
-      list = query.fetch(1)
-      if len(list) == 1:
-        post.imageMeta = list[0]
-    
+    posts = query.fetch(5)        
     data.update({'posts': posts})    
     self.response.out.write(template.render('views/author.html', data))    
 
